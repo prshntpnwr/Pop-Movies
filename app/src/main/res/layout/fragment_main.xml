@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativelayout"
+    tools:context="layout.fragment_main">
+
+
+    <GridLayout
+        android:id="@+id/gridview_movie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:stretchMode="columnWidth"
+        android:background="#000000"/>
+</FrameLayout>
