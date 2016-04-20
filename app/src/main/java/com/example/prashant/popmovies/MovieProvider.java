@@ -96,7 +96,7 @@ public class MovieProvider extends ContentProvider {
          * creation if it doesn't already exist.
          */
         db = dbHelper.getWritableDatabase();
-        return (db != null);
+        return (db == null)? false:true;
     }
 
     @Override
