@@ -1,16 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relativelayout"
+    android:id="@+id/linearlayout"
     tools:context="layout.fragment_main">
 
 
-    <GridLayout
-        android:id="@+id/gridview_movie"
+    <GridView
+        android:id="@+id/gridview_poster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
         android:background="#000000"/>
-</FrameLayout>
+</LinearLayout>

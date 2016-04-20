@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">Pop Movies</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings" translatable="false">Settings</string>
+
+    <string-array name="pref_entries" translate="false">
+        <item>Popularity</item>
+        <item>Rating</item>
+        <item>Favorites</item>
+    </string-array>
+
+    <string-array name="pref_values" translate="false">
+        <item>popularity</item>
+        <item>rating</item>
+        <item>favorites</item>
+    </string-array>
+
+    <string name="action_share">Share</string>
+    <string name="hello" translatable="false">Hello</string>
+    <string name="favorite" translatable="false">FAVORITE</string>
+    <string name="Trailer1" translatable="false"> > Trailer  1</string>
+    <string name="Trailer2" translatable="false"> > Trailer  2</string>
+    <string name="Reviews" translatable="false">Reviews :</string>
+    <string name="Trailers" translatable="false">Trailers : " </string>
+
+
 </resources>

@@ -1,0 +1,176 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.PopMovie.DetailFragment"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:paddingLeft = "20dp"
+                android:id ="@+id/title"
+                android:background = "#499079"
+                android:textSize= "35sp"
+                android:gravity = "center_vertical"
+                android:textColor="#ffffffff"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight = "true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight = "15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom = "15dp"
+                android:layout_below = "@+id/title"
+                android:layout_alignParentLeft="true"
+                android:id = "@+id/poster"
+                android:contentDescription="@null" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft = "5dp"
+                android:paddingRight = "0dp"
+                android:paddingTop = "15dp"
+                android:paddingBottom = "0dp"
+                android:id ="@+id/date"
+                android:layout_below = "@+id/title"
+                android:layout_toRightOf="@+id/poster"
+                android:textSize= "25sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft = "5dp"
+                android:paddingRight = "0dp"
+                android:paddingTop = "0dp"
+                android:paddingBottom = "5dp"
+                android:id ="@+id/rating"
+                android:layout_below = "@+id/date"
+                android:layout_toRightOf="@+id/poster"
+                android:textStyle="bold"
+                />
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text = "@string/favorite"
+                android:paddingLeft = "0dp"
+                android:paddingRight = "0dp"
+                android:paddingTop = "0dp"
+                android:paddingBottom = "0dp"
+                android:id = "@+id/favorite"
+                android:gravity = "center"
+                android:onClick = "favorite"
+                android:layout_marginEnd="38dp"
+
+                android:layout_toRightOf="@+id/poster"
+                android:layout_below="@+id/rating"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft = "15dp"
+                android:paddingRight = "15dp"
+                android:paddingTop = "0dp"
+                android:paddingBottom = "15dp"
+                android:id ="@+id/overview"
+                android:layout_below = "@+id/poster"
+                />
+
+
+            <LinearLayout android:layout_width = "fill_parent"
+                android:layout_height="wrap_content"
+                android:id = "@+id/linear"
+                android:paddingLeft= "15dp"
+                android:paddingRight = "15dp"
+                android:layout_below = "@+id/overview"
+                android:orientation = "vertical">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background = "@android:color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trailer"
+                    android:text="@string/Trailers"
+                    android:textSize="25sp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="5dp"/>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/Trailer1"
+                    android:paddingLeft = "25dp"
+                    android:paddingRight = "0dp"
+                    android:paddingTop = "0dp"
+                    android:paddingBottom = "0dp"
+                    android:id = "@+id/trailer1"
+                    android:gravity = "center_vertical"
+                    android:onClick = "trailer1"
+                    android:visibility="visible"
+                    android:background="@android:color/transparent" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.2dp"
+                    android:background = "@android:color/darker_gray"/>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/Trailer2"
+                    android:paddingLeft = "25dp"
+                    android:paddingRight = "0dp"
+                    android:paddingTop = "0dp"
+                    android:paddingBottom = "0dp"
+                    android:id = "@+id/trailer2"
+                    android:gravity = "center_vertical"
+                    android:onClick = "trailer2"
+                    android:visibility="visible"
+                    android:background="@android:color/transparent"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background = "@android:color/black"/>
+                <TextView
+                    android:text = "@string/Reviews"
+                    android:textSize="20sp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft = "0dp"
+                    android:paddingRight = "0dp"
+                    android:paddingTop = "15dp"
+                    android:paddingBottom = "15dp"
+                    android:id ="@+id/reviews"/>
+
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>
+
