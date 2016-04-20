@@ -28,8 +28,8 @@ public class MovieProvider extends ContentProvider {
     static final String DATE = "date";
     static final String REVIEW = "review";
     static final String RATING = "rating";
-    static final String YOUTUBE = "youtube1";
-    static final String YOUTUBE1 = "youtube2";
+    static final String YOUTUBE1= "youtube1";
+    static final String YOUTUBE2 = "youtube2";
     static final String TITLE = "title";
 
 
@@ -60,8 +60,8 @@ public class MovieProvider extends ContentProvider {
                     " title, " +
                     " review, " +
                     " rating, " +
-                    " youtube, " +
                     " youtube1, " +
+                    " youtube2, " +
                     " date);";
 
     /**

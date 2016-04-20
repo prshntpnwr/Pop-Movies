@@ -56,8 +56,8 @@ public  class MoviesFragment extends Fragment {
     static ArrayList<String> foverview;
     static ArrayList<String> fdate;
     static ArrayList<String> fratings;
-    static ArrayList<String> fyoutube;
     static ArrayList<String> fyoutube1;
+    static ArrayList<String> fyoutube2;
     static ArrayList<String> ftitle;
     static ArrayList<ArrayList<String>> fcomments;
 
@@ -65,8 +65,8 @@ public  class MoviesFragment extends Fragment {
     static ArrayList<String> titles;
     static ArrayList<String> dates;
     static ArrayList<String> ratings;
-    static ArrayList<String> youtube;
     static ArrayList<String> youtube1;
+    static ArrayList<String> youtube2;
     static ArrayList<String> ids;
     static ArrayList<String> posters;
     static ArrayList<Boolean> favorited;
@@ -118,14 +118,14 @@ public  class MoviesFragment extends Fragment {
                     favorited = bindFavoritesToMovies();
 
                     Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .putExtra("overview", overviews.get(position))
                             .putExtra("poster", posters.get(position))
-                            .putExtra("title", titles.get(position))
-                            .putExtra("date", dates.get(position))
-                            .putExtra("rating", ratings.get(position))
-                            .putExtra("youtube", youtube.get(position))
-                            .putExtra("youtube1", youtube1.get(position))
+                            .putExtra("overview", overviews.get(position))
                             .putExtra("comments", comments.get(position))
+                            .putExtra("rating", ratings.get(position))
+                            .putExtra("title", titles.get(position))
+                            .putExtra("youtube1", youtube1.get(position))
+                            .putExtra("youtube2", youtube2.get(position))
+                            .putExtra("date", dates.get(position))
                             .putExtra("favorite", favorited.get(position));
 
                     startActivity(intent);
@@ -134,14 +134,14 @@ public  class MoviesFragment extends Fragment {
 
                 else {
                     Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .putExtra("overview", foverview.get(position))
-                            .putExtra("poster", fposters.get(position))
-                            .putExtra("title", ftitle.get(position))
-                            .putExtra("date", fdate.get(position))
-                            .putExtra("rating", fratings.get(position))
-                            .putExtra("youtube", fyoutube.get(position))
-                            .putExtra("youtube1", fyoutube1.get(position))
-                            .putExtra("comments", fcomments.get(position))
+                            .putExtra("poster", posters.get(position))
+                            .putExtra("overview", overviews.get(position))
+                            .putExtra("comments", comments.get(position))
+                            .putExtra("rating", ratings.get(position))
+                            .putExtra("title", titles.get(position))
+                            .putExtra("youtube1", youtube1.get(position))
+                            .putExtra("youtube2", youtube2.get(position))
+                            .putExtra("date", dates.get(position))
                             .putExtra("favorite", favorited.get(position));
                     startActivity(intent);
                 }
@@ -250,7 +250,7 @@ public  class MoviesFragment extends Fragment {
 
     }
     public void loadFavoritesteData() {
-        String URL = "content://com.example.prashant.Movies/movies";
+        String URL = "content://com.example.prashant.popmovies.Movies/movies";
         Uri movies = Uri.parse(URL);
         Cursor c = getActivity().getContentResolver().query(movies, null, null, null,"title");
 
@@ -258,8 +258,8 @@ public  class MoviesFragment extends Fragment {
         foverview = new ArrayList<String>();
         fratings = new ArrayList<String>();
         ftitle = new ArrayList<String>();
-        fyoutube = new ArrayList<String>();
         fyoutube1 = new ArrayList<String>();
+        fyoutube2 = new ArrayList<String>();
         fdate = new ArrayList<String>();
         favorited =  new ArrayList<Boolean>();
         fcomments = new ArrayList<ArrayList<String>>();
@@ -269,12 +269,13 @@ public  class MoviesFragment extends Fragment {
         while (c.moveToNext()) {
             fposters.add(c.getString(c.getColumnIndex(MovieProvider.NAME)));
             foverview.add(c.getString(c.getColumnIndex(MovieProvider.OVERVIEW)));
-            fdate.add(c.getString(c.getColumnIndex(MovieProvider.DATE)));
             ftitle.add(c.getString(c.getColumnIndex(MovieProvider.TITLE)));
-            fratings.add(c.getString(c.getColumnIndex(MovieProvider.RATING)));
-            fyoutube.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE)));
-            fyoutube1.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE1)));
             fcomments.add(convertStringToArrayList(c.getString(c.getColumnIndex(MovieProvider.REVIEW))));
+            fratings.add(c.getString(c.getColumnIndex(MovieProvider.RATING)));
+            fyoutube1.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE1)));
+            fyoutube2.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE2)));
+            fdate.add(c.getString(c.getColumnIndex(MovieProvider.DATE)));
+
             favorited.add(true);
         }
 
@@ -366,23 +367,23 @@ public  class MoviesFragment extends Fragment {
                         ids = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"id")));
                         while(true)
                         {
-                            youtube = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,0)));
-                            youtube1 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,1)));
+                            youtube1 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,0)));
+                            youtube2 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,1)));
                             int nullCount = 0;
-                            for(int i = 0; i<youtube.size();i++)
-                            {
-                                if(youtube.get(i)==null)
-                                {
-                                    nullCount++;
-                                    youtube.set(i,"no video found");
-                                }
-                            }
                             for(int i = 0; i<youtube1.size();i++)
                             {
                                 if(youtube1.get(i)==null)
                                 {
                                     nullCount++;
                                     youtube1.set(i,"no video found");
+                                }
+                            }
+                            for(int i = 0; i<youtube2.size();i++)
+                            {
+                                if(youtube2.get(i)==null)
+                                {
+                                    nullCount++;
+                                    youtube2.set(i,"no video found");
                                 }
                             }
                             if(nullCount>2)continue;

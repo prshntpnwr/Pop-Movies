@@ -78,13 +78,14 @@ public class DetailActivity extends ActionBarActivity {
             ContentValues values = new ContentValues();
 
             values.put(MovieProvider.NAME,DetailFragment.poster);
-            values.put(MovieProvider.OVERVIEW,DetailFragment.overview);
-            values.put(MovieProvider.RATING,DetailFragment.rating);
-            values.put(MovieProvider.DATE,DetailFragment.date);
-            values.put(MovieProvider.REVIEW,DetailFragment.review);
-            values.put(MovieProvider.YOUTUBE,DetailFragment.youtube);
-            values.put(MovieProvider.YOUTUBE1,DetailFragment.youtube1);
+            values.put(MovieProvider.OVERVIEW, DetailFragment.overview);
             values.put(MovieProvider.TITLE,DetailFragment.title);
+            values.put(MovieProvider.REVIEW,DetailFragment.review);
+            values.put(MovieProvider.RATING,DetailFragment.rating);
+            values.put(MovieProvider.YOUTUBE1,DetailFragment.youtube1);
+            values.put(MovieProvider.YOUTUBE2,DetailFragment.youtube2);
+            values.put(MovieProvider.DATE,DetailFragment.date);
+
 
             getContentResolver().insert(MovieProvider.CONTENT_URI,values);
 
@@ -104,14 +105,14 @@ public class DetailActivity extends ActionBarActivity {
     public void trailer1(View v)
     {
         //launch activity with first youtube video
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube1));
         startActivity(browserIntent);
         Toast.makeText(this,"Launching Trailer", Toast.LENGTH_SHORT).show();
     }
     public void trailer2(View v)
     {
         //launch activity with second youtube video
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube1));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube2));
         startActivity(browserIntent);
         Toast.makeText(this,"Launching Trailer", Toast.LENGTH_SHORT).show();
 
@@ -122,8 +123,8 @@ public class DetailActivity extends ActionBarActivity {
          */
         public static class DetailFragment extends Fragment {
 
-            public static String youtube;
             public static String youtube1;
+            public static String youtube2;
             public static String overview;
             public static String rating;
             public static String date;
@@ -190,15 +191,15 @@ public class DetailActivity extends ActionBarActivity {
 
                 }
 
-                if(intent !=null && intent.hasExtra("youtube"))
-                {
-                    youtube = intent.getStringExtra("youtube");
-
-                }
-
                 if(intent !=null && intent.hasExtra("youtube1"))
                 {
                     youtube1 = intent.getStringExtra("youtube1");
+
+                }
+
+                if(intent !=null && intent.hasExtra("youtube2"))
+                {
+                    youtube2 = intent.getStringExtra("youtube2");
                 }
 
                 if(intent !=null && intent.hasExtra("comments"))
@@ -283,7 +284,7 @@ public class DetailActivity extends ActionBarActivity {
                 shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, MOVIE_SHARE_HASHTAG + ": " + title + ":" +
-                        "http://www.youtube.com/watch?v=" + youtube);
+                        "http://www.youtube.com/watch?v=" + youtube1);
                 return shareIntent;
             }
         }
