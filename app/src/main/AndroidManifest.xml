@@ -26,7 +26,7 @@
 
 
         <provider android:name="MovieProvider"
-            android:authorities = "com.com.example.prashant.provider.Movies"/>
+            android:authorities = "com.example.prashant.popmovies.provider.Movies"/>
     </application>
 
 </manifest>

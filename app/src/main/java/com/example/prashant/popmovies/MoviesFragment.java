@@ -250,7 +250,7 @@ public  class MoviesFragment extends Fragment {
 
     }
     public void loadFavoritesteData() {
-        String URL = "content://com.example.prashant.popmovies.provider.Movies/movies";
+        String URL = "content://com.example.prashant.popmovies.Movies/movies";
         Uri movies = Uri.parse(URL);
         Cursor c = getActivity().getContentResolver().query(movies, null, null, null,"title");
 

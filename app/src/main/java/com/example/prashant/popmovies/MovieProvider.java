@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class MovieProvider extends ContentProvider {
 
-    static final String PROVIDER_NAME = "com.example.prashant.provider.Movies";
+    static final String PROVIDER_NAME = "com.example.prashant.popmovies.provider.Movies";
     static final String URL = "content://" + PROVIDER_NAME + "/movies";
     static final Uri CONTENT_URI = Uri.parse(URL);
 
