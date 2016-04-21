@@ -53,16 +53,32 @@ public class MovieProvider extends ContentProvider {
     static final String DATABASE_NAME = "Movies";
     static final String MOVIES_TABLE_NAME = "Movies";
     static final int DATABASE_VERSION = 1;
+
     static final String CREATE_DB_TABLE =
             " CREATE TABLE " + MOVIES_TABLE_NAME +
-                    " (name, " +
-                    " overview, " +
-                    " title, " +
+                    " (rating, " +
+                    " title , " +
                     " review, " +
-                    " rating, " +
                     " youtube1, " +
+                    " date, " +
+                    " name, " +
                     " youtube2, " +
-                    " date);";
+                    " overview);";
+    /*
+
+
+    static final String CREATE_DB_TABLE = "CREATE TABLE " + MOVIES_TABLE_NAME + " (" +
+            "name," +
+            "overview, " +
+            "title" +
+            "review, " +
+            "rating, " +
+            "youtube1, " +
+            "youtube2, " +
+            "date, " +
+            " );";
+
+*/
 
     /**
      * Helper class that actually creates and manages

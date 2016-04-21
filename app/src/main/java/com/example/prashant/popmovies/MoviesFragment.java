@@ -185,13 +185,14 @@ public  class MoviesFragment extends Fragment {
 
     @Override
     public void onStart() {
+        getActivity().setTitle("POP MOVIE APP");
         super.onStart();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         PreferenceChangeListener listener = new PreferenceChangeListener();
         prefs.registerOnSharedPreferenceChangeListener(listener);
-        ;
+
 
         if (prefs.getString("sortby", "popularity").equals("popularity")) {
             getActivity().setTitle("Most Popular Movies");
