@@ -51,15 +51,7 @@ public  class MoviesFragment extends Fragment {
     static String api_key = "b7f57ee32644eb6ddfdca9ca38b5513e";
     static boolean sortByFavorites;
     HttpURLConnection urlConnection;
-
-    static ArrayList<String> fposters;
-    static ArrayList<String> foverview;
-    static ArrayList<String> fdate;
-    static ArrayList<String> fratings;
-    static ArrayList<String> fyoutube1;
-    static ArrayList<String> fyoutube2;
-    static ArrayList<String> ftitle;
-    static ArrayList<ArrayList<String>> fcomments;
+    static ArrayList<String> fposters = new ArrayList<String>();
 
     static ArrayList<String> overviews;
     static ArrayList<String> titles;
@@ -113,40 +105,23 @@ public  class MoviesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Log.v("THERE IS THE POSITION :", position + "");
+                favorited = new ArrayList<Boolean>();
 
-                if (!sortByFavorites){
-                    favorited = bindFavoritesToMovies();
-
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .putExtra("poster", posters.get(position))
-                            .putExtra("overview", overviews.get(position))
-                            .putExtra("comments", comments.get(position))
-                            .putExtra("rating", ratings.get(position))
-                            .putExtra("title", titles.get(position))
-                            .putExtra("youtube1", youtube1.get(position))
-                            .putExtra("youtube2", youtube2.get(position))
-                            .putExtra("date", dates.get(position))
-                            .putExtra("favorite", favorited.get(position));
-
-                    startActivity(intent);
-
+                for (int i = 0; i < titles.size(); i++) {
+                    favorited.add(false);
                 }
 
-                else {
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .putExtra("poster", posters.get(position))
-                            .putExtra("overview", overviews.get(position))
-                            .putExtra("comments", comments.get(position))
-                            .putExtra("rating", ratings.get(position))
-                            .putExtra("title", titles.get(position))
-                            .putExtra("youtube1", youtube1.get(position))
-                            .putExtra("youtube2", youtube2.get(position))
-                            .putExtra("date", dates.get(position))
-                            .putExtra("favorite", favorited.get(position));
-                    startActivity(intent);
-                }
-
-
+                Intent intent = new Intent(getActivity(),DetailActivity.class).
+                        putExtra("overview",overviews.get(position)).
+                        putExtra("poster", posters.get(position)).
+                        putExtra("title",titles.get(position)).
+                        putExtra("date",dates.get(position)).
+                        putExtra("rating",ratings.get(position)).
+                        putExtra("youtube1",youtube1.get(position)).
+                        putExtra("youtube2",youtube2.get(position)).
+                        putExtra("comments",comments.get(position)).
+                        putExtra("favorite",favorited.get(position));
+                startActivity(intent);
 
             }
         });
@@ -163,29 +138,9 @@ public  class MoviesFragment extends Fragment {
         }
     }
 
-    public ArrayList<Boolean> bindFavoritesToMovies() {
-
-        ArrayList<Boolean> result = new ArrayList<>();
-
-        for (int i = 0; i < titles.size(); i++) {
-            result.add(false);
-        }
-
-        for (String favoritedTitles : ftitle ) {
-
-            for (int j = 0; j < titles.size(); j++) {
-
-                if (favoritedTitles.equals(titles.get(j))){
-                    result.set(j, true);
-                }
-            }
-        }
-        return result;
-    }
-
     @Override
     public void onStart() {
-        getActivity().setTitle("POP MOVIE APP");
+
         super.onStart();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -210,7 +165,7 @@ public  class MoviesFragment extends Fragment {
 
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
-        loadFavoritesteData();
+
         if (sortByFavorites) {
 
             if (fposters.size() == 0) {
@@ -250,37 +205,7 @@ public  class MoviesFragment extends Fragment {
         }
 
     }
-    public void loadFavoritesteData() {
-        String URL = "content://com.example.prashant.popmovies.Movies/movies";
-        Uri movies = Uri.parse(URL);
-        Cursor c = getActivity().getContentResolver().query(movies, null, null, null,"title");
 
-        fposters = new ArrayList<String>();
-        foverview = new ArrayList<String>();
-        fratings = new ArrayList<String>();
-        ftitle = new ArrayList<String>();
-        fyoutube1 = new ArrayList<String>();
-        fyoutube2 = new ArrayList<String>();
-        fdate = new ArrayList<String>();
-        favorited =  new ArrayList<Boolean>();
-        fcomments = new ArrayList<ArrayList<String>>();
-
-        if (c == null) return;
-
-        while (c.moveToNext()) {
-            fposters.add(c.getString(c.getColumnIndex(MovieProvider.NAME)));
-            foverview.add(c.getString(c.getColumnIndex(MovieProvider.OVERVIEW)));
-            ftitle.add(c.getString(c.getColumnIndex(MovieProvider.TITLE)));
-            fcomments.add(convertStringToArrayList(c.getString(c.getColumnIndex(MovieProvider.REVIEW))));
-            fratings.add(c.getString(c.getColumnIndex(MovieProvider.RATING)));
-            fyoutube1.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE1)));
-            fyoutube2.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE2)));
-            fdate.add(c.getString(c.getColumnIndex(MovieProvider.DATE)));
-
-            favorited.add(true);
-        }
-
-    }
 
     public ArrayList<String> convertStringToArrayList(String s){
         ArrayList<String> result = new ArrayList<>(Arrays.asList(s.split("@divider@")));

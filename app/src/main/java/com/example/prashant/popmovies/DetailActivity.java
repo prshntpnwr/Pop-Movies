@@ -71,33 +71,16 @@ public class DetailActivity extends ActionBarActivity {
     public void favorite(View v){
         Button b = (Button) findViewById(R.id.favorite);
         if (b.getText().equals("FAVORITE")){
-            //code to store data of movies into the db
+
             b.setText("UNFAVORITE");
             b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
 
-            ContentValues values = new ContentValues();
-
-            values.put(MovieProvider.NAME,DetailFragment.poster);
-            values.put(MovieProvider.OVERVIEW, DetailFragment.overview);
-            values.put(MovieProvider.TITLE,DetailFragment.title);
-            values.put(MovieProvider.REVIEW,DetailFragment.review);
-            values.put(MovieProvider.RATING,DetailFragment.rating);
-            values.put(MovieProvider.YOUTUBE1,DetailFragment.youtube1);
-            values.put(MovieProvider.YOUTUBE2,DetailFragment.youtube2);
-            values.put(MovieProvider.DATE,DetailFragment.date);
-
-
-            getContentResolver().insert(MovieProvider.CONTENT_URI,values);
 
         }
 
         else {
-            //code to store data of movies into the db
             b.setText("FAVORITE");
             b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-
-            getContentResolver().delete(Uri.parse("content://com.example.prashant.provider.Movies/movies"),
-                    "title=?",new String[]{DetailFragment.title});
         }
     }
 
