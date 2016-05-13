@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 public class MoviesProvider extends ContentProvider {
 
-    private SQLiteDatabase db;
     private MovieDbHelper mOpenHelper;
 
     SQLiteDatabase mWritableDataBase;
@@ -58,7 +57,6 @@ public class MoviesProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
-        db.close();
         return returnUri;
     }
 
