@@ -23,6 +23,10 @@
         <activity android:name=".DetailActivity">
         </activity>
 
+        <provider
+            android:authorities="com.example.prashant.popmovies"
+            android:name=".data.MovieProvider"/>
+
     </application>
 
 </manifest>
