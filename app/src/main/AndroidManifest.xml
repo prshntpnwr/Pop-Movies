@@ -20,12 +20,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".DetailActivity">
+
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.prashant.popmovies.MainActivity" />
         </activity>
 
         <provider
             android:authorities="com.example.prashant.popmovies"
-            android:name=".data.MovieProvider"/>
+            android:name=".data.MoviesProvider"/>
 
     </application>
 

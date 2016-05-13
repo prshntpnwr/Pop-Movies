@@ -24,13 +24,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.prashant.popmovies.data.MovieProvider;
+import com.example.prashant.popmovies.data.MovieContract;
+import com.example.prashant.popmovies.data.MoviesProvider;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
-public class DetailActivity extends ActionBarActivity {
+public class    DetailActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,23 +75,23 @@ public class DetailActivity extends ActionBarActivity {
 
 
             ContentValues values = new ContentValues();
-            values.put(MovieProvider.NAME,DetailActivityFragment.poster);
-            values.put(MovieProvider.OVERVIEW,DetailActivityFragment.overview);
-            values.put(MovieProvider.RATING,DetailActivityFragment.rating);
-            values.put(MovieProvider.DATE,DetailActivityFragment.date);
-            values.put(MovieProvider.REVIEW,DetailActivityFragment.review);
-            values.put(MovieProvider.YOUTUBE1,DetailActivityFragment.youtube1);
-            values.put(MovieProvider.YOUTUBE2, DetailActivityFragment.youtube2);
-            values.put(MovieProvider.TITLE, DetailActivityFragment.title);
+            values.put(MovieContract.MovieEntry.COLUMN_NAME,DetailActivityFragment.poster);
+            values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW,DetailActivityFragment.overview);
+            values.put(MovieContract.MovieEntry.COLUMN_RATING,DetailActivityFragment.rating);
+            values.put(MovieContract.MovieEntry.COLUMN_DATE,DetailActivityFragment.date);
+            values.put(MovieContract.MovieEntry.COLUMN_REVIEW,DetailActivityFragment.review);
+            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE1,DetailActivityFragment.youtube1);
+            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE2, DetailActivityFragment.youtube2);
+            values.put(MovieContract.MovieEntry.COLUMN_TITLE, DetailActivityFragment.title);
 
-            getContentResolver().insert(MovieProvider.BASE_CONTENT_URI, values);
+            getContentResolver().insert(MovieContract.BASE_CONTENT_URI, values);
 
         }
 
-        else {
+        else if(b.getText().equals("UNFAVORITE")) {
             b.setText("FAVORITE");
             b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            getContentResolver().delete(Uri.parse("com.example.prashant.popmovies"),
+            getContentResolver().delete(MovieContract.BASE_CONTENT_URI,
                     "title=?", new String[]{DetailActivityFragment.title});
         }
     }

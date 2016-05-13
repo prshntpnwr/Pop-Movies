@@ -2,6 +2,7 @@
     <string name="app_name">Pop Movies</string>
 
     <string name="settings" translatable="false">Settings</string>
+    <string name="title_activity_detail" translatable="false">Details</string>
 
     <string-array name="pref_entries" translate="false">
         <item>Popularity</item>

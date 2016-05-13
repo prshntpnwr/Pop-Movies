@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.prashant.popmovies.data.ImageAdapter;
-import com.example.prashant.popmovies.data.MovieProvider;
+import com.example.prashant.popmovies.data.MovieContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -109,41 +109,42 @@ public  class MoviesFragment extends Fragment {
 
         }
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                if (!sortByFavorites) {
-                                                    favorited = bindFavoritesToMovies();
-                                                    Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                                            putExtra("overview", overviews.get(position)).
-                                                            putExtra("poster", posters.get(position)).
-                                                            putExtra("title", titles.get(position)).
-                                                            putExtra("date", dates.get(position)).
-                                                            putExtra("rating", ratings.get(position)).
-                                                            putExtra("youtube", youtubes1.get(position)).
-                                                            putExtra("youtube2", youtubes2.get(position)).
-                                                            putExtra("comments", comments.get(position)).
-                                                            putExtra("favorite", favorited.get(position));
+        gridview.setOnItemClickListener
+                (new AdapterView.OnItemClickListener() {
+                     @Override
+                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                         if (!sortByFavorites) {
+                             favorited = bindFavoritesToMovies();
+                             Intent intent = new Intent(getActivity(), DetailActivity.class).
+                                     putExtra("overview", overviews.get(position)).
+                                     putExtra("poster", posters.get(position)).
+                                     putExtra("title", titles.get(position)).
+                                     putExtra("date", dates.get(position)).
+                                     putExtra("rating", ratings.get(position)).
+                                     putExtra("youtube", youtubes1.get(position)).
+                                     putExtra("youtube2", youtubes2.get(position)).
+                                     putExtra("comments", comments.get(position)).
+                                     putExtra("favorite", favorited.get(position));
 
-                                                    startActivity(intent);
+                             startActivity(intent);
 
-                                                }
-                                                else{
-                                                    Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                                            putExtra("overview", overviewsF.get(position)).
-                                                            putExtra("poster", postersF.get(position)).
-                                                            putExtra("title", titlesF.get(position)).
-                                                            putExtra("date", datesF.get(position)).
-                                                            putExtra("rating", ratingsF.get(position)).
-                                                            putExtra("youtube", youtubes1F.get(position)).
-                                                            putExtra("youtube2", youtubes2F.get(position)).
-                                                            putExtra("comments", commentsF.get(position)).
-                                                            putExtra("favorite", favorited.get(position));
+                         }
+                         else{
+                             Intent intent = new Intent(getActivity(), DetailActivity.class).
+                                     putExtra("overview", overviewsF.get(position)).
+                                     putExtra("poster", postersF.get(position)).
+                                     putExtra("title", titlesF.get(position)).
+                                     putExtra("date", datesF.get(position)).
+                                     putExtra("rating", ratingsF.get(position)).
+                                     putExtra("youtube", youtubes1F.get(position)).
+                                     putExtra("youtube2", youtubes2F.get(position)).
+                                     putExtra("comments", commentsF.get(position)).
+                                     putExtra("favorite", favorited.get(position));
 
-                                                    startActivity(intent);
-                                                }
-                                            }
-                                        }
+                             startActivity(intent);
+                         }
+                     }
+                 }
 
         );
 
@@ -208,6 +209,7 @@ public  class MoviesFragment extends Fragment {
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout)getActivity().findViewById(R.id.linearlayout);
         loadFavoritesData();
+
         if(sortByFavorites)
         {
             if(postersF.size()==0)
@@ -263,14 +265,14 @@ public  class MoviesFragment extends Fragment {
         if(c==null) return;
         while(c.moveToNext())
         {
-            postersF.add(c.getString(c.getColumnIndex(MovieProvider.NAME)));
-            commentsF.add(convertStringToArrayList(c.getString(c.getColumnIndex(MovieProvider.REVIEW))));
-            titlesF.add(c.getString(c.getColumnIndex(MovieProvider.TITLE)));
-            overviewsF.add(c.getString(c.getColumnIndex(MovieProvider.OVERVIEW)));
-            youtubes1F.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE1)));
-            youtubes2F.add(c.getString(c.getColumnIndex(MovieProvider.YOUTUBE2)));
-            datesF.add(c.getString(c.getColumnIndex(MovieProvider.DATE)));
-            ratingsF.add(c.getString(c.getColumnIndex(MovieProvider.RATING)));
+            postersF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME)));
+            commentsF.add(convertStringToArrayList(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_REVIEW))));
+            titlesF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_TITLE)));
+            overviewsF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_OVERVIEW)));
+            youtubes1F.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_YOUTUBE1)));
+            youtubes2F.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_YOUTUBE2)));
+            datesF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_DATE)));
+            ratingsF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_RATING)));
             favorited.add(true);
 
         }
