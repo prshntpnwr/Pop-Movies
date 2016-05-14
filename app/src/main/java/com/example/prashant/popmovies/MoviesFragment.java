@@ -276,6 +276,8 @@ public  class MoviesFragment extends Fragment {
             favorited.add(true);
 
         }
+
+        c.close();
     }
     public ArrayList<String> convertStringToArrayList(String s)
     {
