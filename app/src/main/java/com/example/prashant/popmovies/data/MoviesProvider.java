@@ -18,22 +18,23 @@ public class MoviesProvider extends ContentProvider {
 
     private MovieDbHelper mOpenHelper;
 
-    SQLiteDatabase mWritableDataBase;
-    SQLiteDatabase mReadableDataBase;
-
     @Override
     public boolean onCreate() {
 
         mOpenHelper = new MovieDbHelper(getContext());
-        mWritableDataBase = mOpenHelper.getWritableDatabase();
-        mReadableDataBase = mOpenHelper.getReadableDatabase();
         return true;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,String[] selectionArgs,
                         String sortOrder) {
-        return  mReadableDataBase.query(MovieContract.MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        Cursor retCursor = db.query(MovieContract.MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);;
+
+        retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return retCursor;
+
     }
 
     @Override
@@ -45,29 +46,73 @@ public class MoviesProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
 
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
         Uri returnUri;
 
-        long _id = mWritableDataBase.insert(MovieContract.MovieEntry.TABLE_NAME, null, values);
+        long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, values);
 
         if (_id > 0) {
             returnUri = MovieContract.MovieEntry.buildMovieUri(_id);
         }
         else {
-            throw new SQLException("Failed to add a record into " + uri);
+            throw new android.database.SQLException("Failed to insert row into " + uri);
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
+
         return returnUri;
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return mWritableDataBase.delete(MovieContract.MovieEntry.TABLE_NAME, selection, selectionArgs);
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int rowDeleted;
+
+        if ( null == selection ) selection = "1";
+
+        rowDeleted = db.delete(MovieContract.MovieEntry.TABLE_NAME, selection, selectionArgs);
+
+        if (rowDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowDeleted;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return mWritableDataBase.update(MovieContract.MovieEntry.TABLE_NAME, values, selection,
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int rowUpdated = db.update(MovieContract.MovieEntry.TABLE_NAME, values, selection,
                 selectionArgs);
+
+        if (rowUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowUpdated;
+    }
+
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
+        db.beginTransaction();
+        int returnCount = 0;
+
+        try {
+            for (ContentValues value : values) {
+                long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, value);
+
+                if (_id != -1) {
+                    returnCount ++;
+                }
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        getContext().getContentResolver().notifyChange(uri,null);
+        return returnCount;
     }
 }

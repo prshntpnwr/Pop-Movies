@@ -14,11 +14,16 @@ import com.example.prashant.popmovies.SettingsActivity;
 
 
 public class MainActivity extends ActionBarActivity {
+
     public static boolean TABLET = false;
+
     public boolean isTablet(Context context)
     {
-        boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)==4);
-        boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)==Configuration.SCREENLAYOUT_SIZE_LARGE);
+        boolean xlarge = ((context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)==4);
+        boolean large = ((context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)==Configuration.SCREENLAYOUT_SIZE_LARGE);
+
         return(xlarge||large);
 
     }
@@ -28,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TABLET=isTablet(this);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new MoviesFragment())

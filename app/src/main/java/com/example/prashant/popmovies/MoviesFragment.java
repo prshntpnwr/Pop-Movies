@@ -46,7 +46,7 @@ public  class MoviesFragment extends Fragment {
     static boolean sortByPop = true;
     static String api_key = "b7f57ee32644eb6ddfdca9ca38b5513e";
     HttpURLConnection urlConnection;
-    static ArrayList<String> fposters = new ArrayList<String>();
+    static ArrayList<String> fposters;
 
 
     static PreferenceChangeListener listener;
@@ -82,7 +82,6 @@ public  class MoviesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
 
         //It is a interface that apps use to talk or interact with the window manager
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
@@ -262,7 +261,9 @@ public  class MoviesFragment extends Fragment {
         youtubes1F = new ArrayList<String>();
         youtubes2F = new ArrayList<String>();
         ratingsF = new ArrayList<String>();
+
         if(c==null) return;
+
         while(c.moveToNext())
         {
             postersF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME)));
@@ -368,23 +369,23 @@ public  class MoviesFragment extends Fragment {
                             youtubes1 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,0)));
                             youtubes2 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,1)));
                             int nullCount = 0;
-                            for(int i = 0; i<youtubes1.size();i++)
+                            for(int i = 0; i< youtubes1.size(); i++)
                             {
-                                if(youtubes1.get(i)==null)
+                                if(youtubes1.get(i) == null)
                                 {
                                     nullCount++;
-                                    youtubes1.set(i,"no video found");
+                                    youtubes1.set(i, "no video found");
                                 }
                             }
-                            for(int i = 0; i<youtubes2.size();i++)
+                            for(int i = 0; i < youtubes2.size(); i++)
                             {
-                                if(youtubes2.get(i)==null)
+                                if(youtubes2.get(i) == null)
                                 {
                                     nullCount++;
-                                    youtubes2.set(i,"no video found");
+                                    youtubes2.set(i, "no video found");
                                 }
                             }
-                            if(nullCount>2)continue;
+                            if(nullCount > 2) continue;
                             break;
                         }
                         comments = getReviewsFromIds(ids);
@@ -397,11 +398,11 @@ public  class MoviesFragment extends Fragment {
                 {
                     continue;
                 }finally {
-                    if(urlConnection!=null)
+                    if(urlConnection != null)
                     {
                         urlConnection.disconnect();
                     }
-                    if(reader!=null)
+                    if(reader != null)
                     {
                         try{
                             reader.close();

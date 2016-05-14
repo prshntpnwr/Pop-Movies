@@ -102,14 +102,16 @@ public class DetailActivityFragment extends Fragment {
         if(intent !=null && intent.hasExtra("comments"))
         {
             comments = intent.getStringArrayListExtra("comments");
-            for(int i = 0; i<comments.size();i++)
+            for(int i = 0; i < comments.size();i++)
             {
                 LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
                 View divider = new View(getActivity());
                 TextView tv = new TextView(getActivity());
                 RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 tv.setLayoutParams(p);
+
                 int paddingPixel = 10;
+
                 float density = getActivity().getResources().getDisplayMetrics().density;
                 int paddingDP = (int) (paddingPixel * density);
                 tv.setPadding(0, paddingDP, 0, paddingDP);
