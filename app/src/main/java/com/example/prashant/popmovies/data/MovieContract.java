@@ -1,5 +1,6 @@
 package com.example.prashant.popmovies.data;
 
+import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.net.Uri;
@@ -13,7 +14,7 @@ public class MovieContract {
     // relationship between a domain name and its website.  A convenient string to use for the
     // content authority is the package name for the app, which is guaranteed to be unique on the
     // device.
-    public static final String CONTENT_AUTHORITY = "com.example.prashant.popmovies.data";
+    public static final String CONTENT_AUTHORITY = "com.example.prashant.popmovies";
 
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
@@ -32,7 +33,9 @@ public class MovieContract {
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + PATH_MOVIE;
 
-        public static final String TABLE_NAME = "movies";;
+        public static final String TABLE_NAME = "movies";
+
+        public static final String COLUMN_NAME = "name";
 
         public static final String COLUMN_RATING = "ratings";
 
@@ -47,8 +50,6 @@ public class MovieContract {
         public static final String COLUMN_OVERVIEW = "overview";
 
         public static final String COLUMN_DATE = "date";
-
-        public static final String COLUMN_NAME = "name";
 
         public static Uri buildMovieUri(long id) {
             //ContentUris.withAppendedId() is a helper method to create an id-based URI

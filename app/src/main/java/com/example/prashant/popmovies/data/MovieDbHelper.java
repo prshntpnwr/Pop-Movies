@@ -28,10 +28,9 @@ public class MovieDbHelper extends SQLiteOpenHelper{
                 MovieEntry.COLUMN_DATE + " TEXT NOT NULL, " +
                 MovieEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 MovieEntry.COLUMN_YOUTUBE2 + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " + ");";
+                MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL " + ");";
 
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIE_TABLE);
-
     }
 
     @Override
