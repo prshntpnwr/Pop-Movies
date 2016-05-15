@@ -35,7 +35,7 @@ public class MovieContract {
 
         public static final String TABLE_NAME = "movies";
 
-        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_POSTER_PATH = "poster";
 
         public static final String COLUMN_RATING = "ratings";
 

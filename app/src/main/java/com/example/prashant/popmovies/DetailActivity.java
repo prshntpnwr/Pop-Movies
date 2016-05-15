@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-public class    DetailActivity extends ActionBarActivity {
+public class DetailActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class    DetailActivity extends ActionBarActivity {
 
 
             ContentValues values = new ContentValues();
-            values.put(MovieContract.MovieEntry.COLUMN_NAME,DetailActivityFragment.poster);
+            values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH,DetailActivityFragment.poster);
             values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW,DetailActivityFragment.overview);
             values.put(MovieContract.MovieEntry.COLUMN_RATING,DetailActivityFragment.rating);
             values.put(MovieContract.MovieEntry.COLUMN_DATE,DetailActivityFragment.date);

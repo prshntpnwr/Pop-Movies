@@ -103,7 +103,6 @@ public  class MoviesFragment extends Fragment {
 
             gridview.setColumnWidth(width);
 
-            //set the posters on gridview optained from imageAdapter class
             gridview.setAdapter(adapter);
 
         }
@@ -240,6 +239,7 @@ public  class MoviesFragment extends Fragment {
                 TextView textview1 = new TextView(getActivity());
                 LinearLayout layout1 = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
                 textview1.setText("You are not connected to the Internet");
+
                 if (layout1.getChildCount() == 1) {
                     layout1.addView(textview1);
                 }
@@ -249,9 +249,8 @@ public  class MoviesFragment extends Fragment {
     }
     public void loadFavoritesData()
     {
-        String URL = "content://com.example.prashant.popmovies/movies";
-        Uri movies = Uri.parse(URL);
-        Cursor c = getActivity().getContentResolver().query(movies,null,null,null,"title");
+        Uri uri = MovieContract.BASE_CONTENT_URI;
+        Cursor c = getActivity().getContentResolver().query(uri,null,null,null,"title");
         postersF = new ArrayList<String>();
         titlesF = new ArrayList<String>();
         datesF = new ArrayList<String>();
@@ -266,7 +265,7 @@ public  class MoviesFragment extends Fragment {
 
         while(c.moveToNext())
         {
-            postersF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME)));
+            postersF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_POSTER_PATH)));
             commentsF.add(convertStringToArrayList(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_REVIEW))));
             titlesF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_TITLE)));
             overviewsF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_OVERVIEW)));
