@@ -249,8 +249,9 @@ public  class MoviesFragment extends Fragment {
     }
     public void loadFavoritesData()
     {
-        Uri uri = MovieContract.BASE_CONTENT_URI;
-        Cursor c = getActivity().getContentResolver().query(uri,null,null,null,"title");
+        String URL = "content://com.example.prashant.popmovies/movies";
+        Uri movies = Uri.parse(URL);
+        Cursor c = getActivity().getContentResolver().query(movies,null,null,null,"title");
         postersF = new ArrayList<String>();
         titlesF = new ArrayList<String>();
         datesF = new ArrayList<String>();
