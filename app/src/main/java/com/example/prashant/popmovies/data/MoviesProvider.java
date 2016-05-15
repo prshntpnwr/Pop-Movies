@@ -56,7 +56,7 @@ public class MoviesProvider extends ContentProvider {
             returnUri = MovieContract.MovieEntry.buildMovieUri(_id);
         }
         else {
-            throw new android.database.SQLException("Failed to insert row into " + uri);
+            throw new SQLException("Failed to add a record into " + uri);
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
