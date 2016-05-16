@@ -233,7 +233,7 @@ public  class MoviesFragment extends Fragment{
             layout.removeView(textView);
 
             if (isNetworkAvailable()) {
-                 new FetchMovieTask.ImageLoadTask().execute();
+                new FetchMovieTask.ImageLoadTask(getActivity()).execute();
             }
 
             else {

@@ -1,6 +1,7 @@
 package com.example.prashant.popmovies.Sync;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.widget.GridView;
@@ -25,11 +26,6 @@ public class FetchMovieTask extends Fragment {
     static int width;
     static boolean sortByPop = true;
     static String api_key = "b7f57ee32644eb6ddfdca9ca38b5513e";
-
-    static ArrayList<String> fposters;
-
-    static PreferenceChangeListener listener;
-
     static ArrayList<String> overviews;
     static ArrayList<String> titles;
     static ArrayList<String> dates;
@@ -45,6 +41,10 @@ public class FetchMovieTask extends Fragment {
 
         private final String LOG_TAG = ImageLoadTask.class.getSimpleName();
         private Context mContext;
+
+        public ImageLoadTask(Context context) {
+            mContext = context;
+        }
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
