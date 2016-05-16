@@ -1,4 +1,4 @@
-package com.example.prashant.popmovies.data;
+package com.example.prashant.popmovies.Sync;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -53,6 +53,7 @@ public class ImageAdapter extends BaseAdapter {
         Drawable d =resizeDrawable(mContext.getResources().getDrawable(R.drawable.placeholder));
         Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/" + array.get(position)).
                 resize(width, (int)(width*1.5)).placeholder(d).into(imageView);
+
         return imageView;
 
     }

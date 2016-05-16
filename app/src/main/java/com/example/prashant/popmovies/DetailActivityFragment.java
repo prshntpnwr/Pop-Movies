@@ -1,6 +1,5 @@
 package com.example.prashant.popmovies;
 
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
 
 public class DetailActivityFragment extends Fragment {
 
