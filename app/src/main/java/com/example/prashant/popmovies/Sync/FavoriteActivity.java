@@ -1,4 +1,4 @@
-package com.example.prashant.popmovies;
+package com.example.prashant.popmovies.Sync;
 
 import android.app.Application;
 
