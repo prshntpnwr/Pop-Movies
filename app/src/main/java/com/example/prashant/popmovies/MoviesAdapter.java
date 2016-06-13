@@ -51,7 +51,7 @@ public class MoviesAdapter extends CursorAdapter {
         viewHolder.reviewView.setText(review);
 
         long poster = cursor.getLong(MoviesFragment.COL_MOVIE_POSTER_PATH);
-        viewHolder.posterView.setImageResource(MovieContract.MovieEntry.COLUMN_MOVIE_ID);
+        viewHolder.posterView.setImageResource(MoviesFragment.COL_MOVIE_ID);
 
         long trailer1 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE1);
         viewHolder.trailerView1.setText(MovieContract.MovieEntry.COLUMN_YOUTUBE1);
@@ -62,7 +62,7 @@ public class MoviesAdapter extends CursorAdapter {
 
     }
 
-    public  static class ViewHolder {
+    public static class ViewHolder {
         public final ImageView posterView;
         public final TextView titleView;
         public final TextView dateView;
