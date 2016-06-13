@@ -212,13 +212,11 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
 
-        String sortOrder = MovieContract.MovieEntry.COLUMN_DATE + " ASC";
-
         return new CursorLoader(getActivity(), MovieContract.MovieEntry.CONTENT_URI,
-                MOVIE_COLUMNS,
                 null,
                 null,
-                sortOrder);
+                null,
+                null);
     }
 
     @Override
