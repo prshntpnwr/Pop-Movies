@@ -100,14 +100,16 @@ public class DetailActivity extends ActionBarActivity {
     public void trailer1(View v)
     {
         //launch activity with first youtube video
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + DetailActivityFragment.youtube1));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + DetailActivityFragment.youtube1));
         startActivity(browserIntent);
         Toast.makeText(this,"Launching Trailer", Toast.LENGTH_SHORT).show();
     }
     public void trailer2(View v)
     {
         //launch activity with second youtube video
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + DetailActivityFragment.youtube2));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + DetailActivityFragment.youtube2));
         startActivity(browserIntent);
         Toast.makeText(this,"Launching Trailer", Toast.LENGTH_SHORT).show();
 

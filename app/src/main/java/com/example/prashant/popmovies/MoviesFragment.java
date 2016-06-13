@@ -12,6 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +43,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public  class MoviesFragment extends Fragment{
+public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+    private MoviesAdapter mMoviesAdapter;
+
+    private GridView mGridView;
+    private int mPosition = GridView.INVALID_POSITION;
+    private static final int MOVIE_LOADER_ID = 0;
+    private Cursor cursor;
+
+    private static final String[] MOVIE_COLUMNS = {
+            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
+            MovieContract.MovieEntry.COLUMN_DATE,
+            MovieContract.MovieEntry.COLUMN_POSTER_PATH,
+            MovieContract.MovieEntry.COLUMN_RATING,
+            MovieContract.MovieEntry.COLUMN_OVERVIEW,
+            MovieContract.MovieEntry.COLUMN_REVIEW,
+            MovieContract.MovieEntry.COLUMN_TITLE,
+            MovieContract.MovieEntry.COLUMN_YOUTUBE1,
+            MovieContract.MovieEntry.COLUMN_YOUTUBE2
+    };
+
+    static final int COL_MOVIE_ID = 0;
+    static final int COL_MOVIE_DATE = 1;
+    static final int COL_MOVIE_POSTER_PATH = 2;
+    static final int COL_MOVIE_RATING = 3;
+    static final int COL_MOVIE_OVERVIEW = 4;
+    static final int COL_MOVIE_REVIEW = 5;
+    static final int COL_MOVIE_TITLE = 6;
+    static final int COL_MOVIE_YOUTUBE1 = 7;
+    static final int COL_MOVIE_YOUTUBE2 = 8;
+
 
     static GridView gridview;
     static int width;
@@ -71,6 +103,13 @@ public  class MoviesFragment extends Fragment{
     static ArrayList<String> posters;
     static ArrayList<Boolean> favorited;
     static ArrayList<ArrayList<String>> comments;
+
+    public interface Callback {
+        /**
+         * DetailFragmentCallback for when an item has been selected.
+         */
+        public void onItemSelected(Uri dateUri);
+    }
 
     public MoviesFragment() {
     }
@@ -143,6 +182,34 @@ public  class MoviesFragment extends Fragment{
                  }
         );
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+
+        // sortOrder = MovieContract.MovieEntry.COLUMN_DATE + " ASC";
+
+        return new CursorLoader(getActivity(), MovieContract.MovieEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mMoviesAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mMoviesAdapter.swapCursor(null);
     }
 
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener{
