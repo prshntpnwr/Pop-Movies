@@ -1,4 +1,4 @@
-package com.example.prashant.popmovies.Sync;
+package com.example.prashant.popmovies;
 
 import android.content.Context;
 import android.graphics.Bitmap;

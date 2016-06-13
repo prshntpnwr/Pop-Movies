@@ -3,18 +3,12 @@ package com.example.prashant.popmovies;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.prashant.popmovies.data.MovieContract;
-
-import static com.example.prashant.popmovies.R.drawable.placeholder;
 
 public class MoviesAdapter extends CursorAdapter {
 
@@ -24,8 +18,11 @@ public class MoviesAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_detail, viewGroup, false);
-        return null;
+        ViewHolder viewHolder = new ViewHolder(view);
+        view.setTag(viewHolder);
+        return view;
     }
 
     @Override
@@ -33,16 +30,14 @@ public class MoviesAdapter extends CursorAdapter {
 
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-       // int viewType = getItemViewType(cursor.getPosition());
-
         long date = cursor.getLong(MoviesFragment.COL_MOVIE_DATE);
-        viewHolder.dateView.setText(MovieContract.MovieEntry.COLUMN_DATE);
+        viewHolder.dateView.setText();
 
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);
 
         long rating = cursor.getLong(MoviesFragment.COL_MOVIE_RATING);
-        viewHolder.ratingView.setText(MovieContract.MovieEntry.COLUMN_RATING);
+        viewHolder.ratingView.setText();
 
         String overview = cursor.getString(MoviesFragment.COL_MOVIE_OVERVIEW);
         viewHolder.overviewView.setText(overview);
@@ -51,13 +46,13 @@ public class MoviesAdapter extends CursorAdapter {
         viewHolder.reviewView.setText(review);
 
         long poster = cursor.getLong(MoviesFragment.COL_MOVIE_POSTER_PATH);
-        viewHolder.posterView.setImageResource(MoviesFragment.COL_MOVIE_ID);
+        viewHolder.posterView.setImageResource();
 
         long trailer1 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE1);
-        viewHolder.trailerView1.setText(MovieContract.MovieEntry.COLUMN_YOUTUBE1);
+        viewHolder.trailerView1.setText();
 
         long trailer2 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE2);
-        viewHolder.dateView.setText(MovieContract.MovieEntry.COLUMN_YOUTUBE2);
+        viewHolder.dateView.setText();
 
 
     }
