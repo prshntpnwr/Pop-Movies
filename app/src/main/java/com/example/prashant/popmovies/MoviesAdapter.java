@@ -33,13 +33,13 @@ public class MoviesAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         long date = cursor.getLong(MoviesFragment.COL_MOVIE_DATE);
-        viewHolder.dateView.setText(MovieContract.MovieEntry.COLUMN_DATE);
+        viewHolder.dateView.setText();
 
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);
 
         long rating = cursor.getLong(MoviesFragment.COL_MOVIE_RATING);
-        viewHolder.ratingView.setText(MovieContract.MovieEntry.COLUMN_RATING);
+        viewHolder.ratingView.setText();
 
         String overview = cursor.getString(MoviesFragment.COL_MOVIE_OVERVIEW);
         viewHolder.overviewView.setText(overview);
@@ -51,10 +51,10 @@ public class MoviesAdapter extends CursorAdapter {
         viewHolder.posterView.setImageResource();
 
         long trailer1 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE1);
-        viewHolder.trailerView1.setText(MovieContract.MovieEntry.COLUMN_YOUTUBE1);
+        viewHolder.trailerView1.setText();
 
         long trailer2 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE2);
-        viewHolder.dateView.setText(MovieContract.MovieEntry.COLUMN_YOUTUBE2);
+        viewHolder.dateView.setText();
 
 
     }
