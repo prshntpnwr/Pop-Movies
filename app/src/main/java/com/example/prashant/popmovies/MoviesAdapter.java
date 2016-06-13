@@ -3,6 +3,7 @@ package com.example.prashant.popmovies;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.prashant.popmovies.data.MovieContract;
+
+import static com.example.prashant.popmovies.R.drawable.placeholder;
 
 public class MoviesAdapter extends CursorAdapter {
 
@@ -36,19 +39,19 @@ public class MoviesAdapter extends CursorAdapter {
         viewHolder.dateView.setText(MovieContract.MovieEntry.COLUMN_DATE);
 
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
-        viewHolder.titleView.getText(title);
+        viewHolder.titleView.setText(title);
 
         long rating = cursor.getLong(MoviesFragment.COL_MOVIE_RATING);
         viewHolder.ratingView.setText(MovieContract.MovieEntry.COLUMN_RATING);
 
         String overview = cursor.getString(MoviesFragment.COL_MOVIE_OVERVIEW);
-        viewHolder.overviewView.setText(MovieContract.MovieEntry.COLUMN_OVERVIEW);
+        viewHolder.overviewView.setText(overview);
 
-        long review = cursor.getLong(MoviesFragment.COL_MOVIE_REVIEW);
-        viewHolder.reviewView.setText(MovieContract.MovieEntry.COLUMN_REVIEW);
+        String review = cursor.getString(MoviesFragment.COL_MOVIE_REVIEW);
+        viewHolder.reviewView.setText(review);
 
         long poster = cursor.getLong(MoviesFragment.COL_MOVIE_POSTER_PATH);
-        viewHolder.posterView.setImageResource(MovieContract.MovieEntry.COLUMN_POSTER_PATH, );
+        viewHolder.posterView.setImageResource(MovieContract.MovieEntry.COLUMN_MOVIE_ID);
 
         long trailer1 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE1);
         viewHolder.trailerView1.setText(MovieContract.MovieEntry.COLUMN_YOUTUBE1);
