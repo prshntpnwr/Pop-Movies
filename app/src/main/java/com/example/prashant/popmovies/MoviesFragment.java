@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Point;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -45,9 +46,13 @@ import java.util.Arrays;
 
 public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private MoviesAdapter mMoviesAdapter;
+    private ImageAdapter adapter;
 
-    private GridView mGridView;
+    static GridView gridview;
     private int mPosition = GridView.INVALID_POSITION;
+
+    private static final String SELECTED_KEY = "selected_position";
+
     private static final int MOVIE_LOADER_ID = 0;
     private Cursor cursor;
 
@@ -73,13 +78,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     static final int COL_MOVIE_YOUTUBE1 = 7;
     static final int COL_MOVIE_YOUTUBE2 = 8;
 
-
-    static GridView gridview;
     static int width;
     static boolean sortByPop = true;
     static String api_key = "b7f57ee32644eb6ddfdca9ca38b5513e";
     static ArrayList<String> fposters;
-
 
     static PreferenceChangeListener listener;
     static SharedPreferences prefs;
@@ -178,9 +180,16 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                              startActivity(intent);
                          }
+                         mPosition = position;
                      }
+
                  }
         );
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
         return rootView;
     }
 
@@ -224,13 +233,13 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     public ArrayList<Boolean> bindFavoritesToMovies() {
 
         ArrayList<Boolean> result = new ArrayList<>();
-        for(int i =0; i<titles.size();i++) {
+        for(int i = 0; i < titles.size(); i++) {
 
             result.add(false);
         }
         for(String favoritedTitles: titlesF) {
 
-            for(int x = 0; x<titles.size(); x++)
+            for(int x = 0; x < titles.size(); x++)
             {
                 if(favoritedTitles.equals(titles.get(x)))
                 {
