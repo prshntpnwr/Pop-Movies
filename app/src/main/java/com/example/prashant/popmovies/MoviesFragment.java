@@ -313,6 +313,19 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         return result;
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        initLoader();
+
+    }
+
+    public void initLoader() {
+        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
+        cursor = getActivity().getContentResolver()
+                .query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
+
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
