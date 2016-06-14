@@ -325,7 +325,7 @@ public  class MoviesFragment extends Fragment {
     public void loadFavoritesData() {
 
         Uri uri = MovieContract.BASE_CONTENT_URI;
-        Cursor c = getActivity().getContentResolver().query(uri,null,null,null,"title");
+        Cursor c = getActivity().getContentResolver().query(uri,DETAIL_COLUMNS,null,null,"title");
         postersF = new ArrayList<String>();
         titlesF = new ArrayList<String>();
         datesF = new ArrayList<String>();
