@@ -32,14 +32,14 @@ public class MoviesAdapter extends CursorAdapter {
 
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        long date = cursor.getLong(MoviesFragment.COL_MOVIE_DATE);
-        viewHolder.dateView.setText();
+        String date = cursor.getString(MoviesFragment.COL_MOVIE_DATE);
+        viewHolder.dateView.setText(date);
 
         String title = cursor.getString(MoviesFragment.COL_MOVIE_TITLE);
         viewHolder.titleView.setText(title);
 
-        long rating = cursor.getLong(MoviesFragment.COL_MOVIE_RATING);
-        viewHolder.ratingView.setText();
+        String rating = cursor.getString(MoviesFragment.COL_MOVIE_RATING);
+        viewHolder.ratingView.setText(rating);
 
         String overview = cursor.getString(MoviesFragment.COL_MOVIE_OVERVIEW);
         viewHolder.overviewView.setText(overview);
@@ -47,14 +47,14 @@ public class MoviesAdapter extends CursorAdapter {
         String review = cursor.getString(MoviesFragment.COL_MOVIE_REVIEW);
         viewHolder.reviewView.setText(review);
 
-        long poster = cursor.getLong(MoviesFragment.COL_MOVIE_POSTER_PATH);
-        viewHolder.posterView.setImageResource();
+        String poster = cursor.getString(MoviesFragment.COL_MOVIE_POSTER_PATH);
+        viewHolder.posterView.setImageResource(poster);
 
-        long trailer1 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE1);
-        viewHolder.trailerView1.setText();
+        String trailer1 = cursor.getString(MoviesFragment.COL_MOVIE_YOUTUBE1);
+        viewHolder.trailerView1.setText(trailer1);
 
-        long trailer2 = cursor.getLong(MoviesFragment.COL_MOVIE_YOUTUBE2);
-        viewHolder.dateView.setText();
+        String trailer2 = cursor.getString(MoviesFragment.COL_MOVIE_YOUTUBE2);
+        viewHolder.dateView.setText(trailer2);
 
 
     }

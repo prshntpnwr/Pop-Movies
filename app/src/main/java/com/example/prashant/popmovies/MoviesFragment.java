@@ -288,7 +288,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout)getActivity().findViewById(R.id.linearlayout);
 
-        loadFavoritesData();
+        //loadFavoritesData();
 
         if(sortByFavorites)
         {
@@ -347,7 +347,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
+/*
     public void loadFavoritesData() {
 
         Uri uri = MovieContract.BASE_CONTENT_URI;
@@ -380,6 +380,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         c.close();
     }
+
+*/
 
     public class ImageLoadTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
