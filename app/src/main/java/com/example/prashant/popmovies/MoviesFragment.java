@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public  class MoviesFragment extends Fragment {
+public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ImageAdapter adapter;
 
@@ -104,7 +104,6 @@ public  class MoviesFragment extends Fragment {
     static final int COL_MOVIE_YOUTUBE1 = 7;
     static final int COL_MOVIE_YOUTUBE2 = 8;
 
-
     public interface Callback {
         /**
          * DetailFragmentCallback for when an item has been selected.
@@ -114,6 +113,8 @@ public  class MoviesFragment extends Fragment {
 
     public MoviesFragment() {
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -262,7 +263,7 @@ public  class MoviesFragment extends Fragment {
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout)getActivity().findViewById(R.id.linearlayout);
 
-        loadFavoritesData();
+        //loadFavoritesData();
 
         if(sortByFavorites)
         {
@@ -311,6 +312,50 @@ public  class MoviesFragment extends Fragment {
         return result;
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        return new CursorLoader(getActivity(),
+                MovieContract.BASE_CONTENT_URI,
+                DETAIL_COLUMNS,
+                null,
+                null,
+                "title"
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+
+        postersF = new ArrayList<String>();
+        titlesF = new ArrayList<String>();
+        datesF = new ArrayList<String>();
+        overviewsF = new ArrayList<String>();
+        favorited = new ArrayList<Boolean>();
+        commentsF = new ArrayList<ArrayList<String>>();
+        youtubes1F = new ArrayList<String>();
+        youtubes2F = new ArrayList<String>();
+        ratingsF = new ArrayList<String>();
+
+        if(c==null) return;
+
+        postersF.add(c.getString(COL_MOVIE_POSTER_PATH));
+        commentsF.add(convertStringToArrayList(c.getString(COL_MOVIE_REVIEW)));
+        titlesF.add(c.getString(COL_MOVIE_TITLE));
+        overviewsF.add(c.getString(COL_MOVIE_OVERVIEW));
+        youtubes1F.add(c.getString(COL_MOVIE_YOUTUBE1));
+        youtubes2F.add(c.getString(COL_MOVIE_YOUTUBE2));
+        datesF.add(c.getString(COL_MOVIE_DATE));
+        ratingsF.add(c.getString(COL_MOVIE_RATING));
+        favorited.add(true);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
+
     public boolean isNetworkAvailable() {
         //It is a class that answer all the queries about the os network connectivity.
         //also notifies app when connection changes
@@ -322,7 +367,7 @@ public  class MoviesFragment extends Fragment {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void loadFavoritesData() {
+/*    public void loadFavoritesData() {
 
         Uri uri = MovieContract.BASE_CONTENT_URI;
         Cursor c = getActivity().getContentResolver().query(uri,DETAIL_COLUMNS,null,null,"title");
@@ -353,7 +398,7 @@ public  class MoviesFragment extends Fragment {
         }
 
         c.close();
-    }
+    }*/
 
     public class ImageLoadTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
