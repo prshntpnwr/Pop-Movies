@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -184,7 +185,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                          mPosition = position;
                      }
                  }
-        );
+                );
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
@@ -317,7 +318,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         return new CursorLoader(getActivity(),
                 MovieContract.BASE_CONTENT_URI,
-                DETAIL_COLUMNS,
+                null,
                 null,
                 null,
                 "title"
