@@ -166,6 +166,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                              startActivity(intent);
 
                          }
+
                          else{
                              Intent intent = new Intent(getActivity(), DetailActivity.class).
                                      putExtra("overriew", overviewsF.get(position)).
@@ -182,7 +183,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                          }
                          mPosition = position;
                      }
-
                  }
         );
 
@@ -339,15 +339,19 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         if(c==null) return;
 
-        postersF.add(c.getString(COL_MOVIE_POSTER_PATH));
-        commentsF.add(convertStringToArrayList(c.getString(COL_MOVIE_REVIEW)));
-        titlesF.add(c.getString(COL_MOVIE_TITLE));
-        overviewsF.add(c.getString(COL_MOVIE_OVERVIEW));
-        youtubes1F.add(c.getString(COL_MOVIE_YOUTUBE1));
-        youtubes2F.add(c.getString(COL_MOVIE_YOUTUBE2));
-        datesF.add(c.getString(COL_MOVIE_DATE));
-        ratingsF.add(c.getString(COL_MOVIE_RATING));
-        favorited.add(true);
+        while(c.moveToNext())
+        {
+            postersF.add(c.getString(COL_MOVIE_POSTER_PATH));
+            commentsF.add(convertStringToArrayList(c.getString(COL_MOVIE_REVIEW)));
+            titlesF.add(c.getString(COL_MOVIE_TITLE));
+            overviewsF.add(c.getString(COL_MOVIE_OVERVIEW));
+            youtubes1F.add(c.getString(COL_MOVIE_YOUTUBE1));
+            youtubes2F.add(c.getString(COL_MOVIE_YOUTUBE2));
+            datesF.add(c.getString(COL_MOVIE_DATE));
+            ratingsF.add(c.getString(COL_MOVIE_RATING));
+            favorited.add(true);
+
+        }
 
     }
 
@@ -367,38 +371,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-/*    public void loadFavoritesData() {
-
-        Uri uri = MovieContract.BASE_CONTENT_URI;
-        Cursor c = getActivity().getContentResolver().query(uri,DETAIL_COLUMNS,null,null,"title");
-        postersF = new ArrayList<String>();
-        titlesF = new ArrayList<String>();
-        datesF = new ArrayList<String>();
-        overviewsF = new ArrayList<String>();
-        favorited = new ArrayList<Boolean>();
-        commentsF = new ArrayList<ArrayList<String>>();
-        youtubes1F = new ArrayList<String>();
-        youtubes2F = new ArrayList<String>();
-        ratingsF = new ArrayList<String>();
-
-        if(c==null) return;
-
-        while(c.moveToNext())
-        {
-            postersF.add(c.getString(COL_MOVIE_POSTER_PATH));
-            commentsF.add(convertStringToArrayList(c.getString(COL_MOVIE_REVIEW)));
-            titlesF.add(c.getString(COL_MOVIE_TITLE));
-            overviewsF.add(c.getString(COL_MOVIE_OVERVIEW));
-            youtubes1F.add(c.getString(COL_MOVIE_YOUTUBE1));
-            youtubes2F.add(c.getString(COL_MOVIE_YOUTUBE2));
-            datesF.add(c.getString(COL_MOVIE_DATE));
-            ratingsF.add(c.getString(COL_MOVIE_RATING));
-            favorited.add(true);
-
-        }
-
-        c.close();
-    }*/
 
     public class ImageLoadTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
