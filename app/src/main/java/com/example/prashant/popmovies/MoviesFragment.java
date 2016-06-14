@@ -262,7 +262,7 @@ public  class MoviesFragment extends Fragment {
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout)getActivity().findViewById(R.id.linearlayout);
 
-        //loadFavoritesData();
+        loadFavoritesData();
 
         if(sortByFavorites)
         {
