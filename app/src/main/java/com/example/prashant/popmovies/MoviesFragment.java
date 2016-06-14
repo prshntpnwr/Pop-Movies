@@ -41,8 +41,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
-    private MoviesAdapter mMoviesAdapter;
+public  class MoviesFragment extends Fragment {
+
     private ImageAdapter adapter;
 
     static GridView gridview;
@@ -50,30 +50,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     private static final String SELECTED_KEY = "selected_position";
 
-    private static final int MOVIE_LOADER_ID = 0;
     private Cursor cursor;
-
-    private static final String[] MOVIE_COLUMNS = {
-            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
-            MovieContract.MovieEntry.COLUMN_DATE,
-            MovieContract.MovieEntry.COLUMN_POSTER_PATH,
-            MovieContract.MovieEntry.COLUMN_RATING,
-            MovieContract.MovieEntry.COLUMN_OVERVIEW,
-            MovieContract.MovieEntry.COLUMN_REVIEW,
-            MovieContract.MovieEntry.COLUMN_TITLE,
-            MovieContract.MovieEntry.COLUMN_YOUTUBE1,
-            MovieContract.MovieEntry.COLUMN_YOUTUBE2
-    };
-
-    static final int COL_MOVIE_ID = 0;
-    static final int COL_MOVIE_DATE = 1;
-    static final int COL_MOVIE_POSTER_PATH = 2;
-    static final int COL_MOVIE_RATING = 3;
-    static final int COL_MOVIE_OVERVIEW = 4;
-    static final int COL_MOVIE_REVIEW = 5;
-    static final int COL_MOVIE_TITLE = 6;
-    static final int COL_MOVIE_YOUTUBE1 = 7;
-    static final int COL_MOVIE_YOUTUBE2 = 8;
 
     static int width;
     static boolean sortByPop = true;
@@ -102,6 +79,31 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     static ArrayList<String> posters;
     static ArrayList<Boolean> favorited;
     static ArrayList<ArrayList<String>> comments;
+
+    private static final int MOVIE_LOADER_ID = 0;
+
+    private static final String[] DETAIL_COLUMNS = {
+            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
+            MovieContract.MovieEntry.COLUMN_DATE,
+            MovieContract.MovieEntry.COLUMN_POSTER_PATH,
+            MovieContract.MovieEntry.COLUMN_RATING,
+            MovieContract.MovieEntry.COLUMN_OVERVIEW,
+            MovieContract.MovieEntry.COLUMN_REVIEW,
+            MovieContract.MovieEntry.COLUMN_TITLE,
+            MovieContract.MovieEntry.COLUMN_YOUTUBE1,
+            MovieContract.MovieEntry.COLUMN_YOUTUBE2
+    };
+
+    static final int COL_MOVIE_ID = 0;
+    static final int COL_MOVIE_DATE = 1;
+    static final int COL_MOVIE_POSTER_PATH = 2;
+    static final int COL_MOVIE_RATING = 3;
+    static final int COL_MOVIE_OVERVIEW = 4;
+    static final int COL_MOVIE_REVIEW = 5;
+    static final int COL_MOVIE_TITLE = 6;
+    static final int COL_MOVIE_YOUTUBE1 = 7;
+    static final int COL_MOVIE_YOUTUBE2 = 8;
+
 
     public interface Callback {
         /**
@@ -165,7 +167,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                          }
                          else{
                              Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                     putExtra("overview", overviewsF.get(position)).
+                                     putExtra("overriew", overviewsF.get(position)).
                                      putExtra("poster", postersF.get(position)).
                                      putExtra("title", titlesF.get(position)).
                                      putExtra("date", datesF.get(position)).
@@ -191,13 +193,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
         // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
@@ -206,27 +201,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             outState.putInt(SELECTED_KEY, mPosition);
         }
         super.onSaveInstanceState(outState);
-    }
-
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-
-        return new CursorLoader(getActivity(), MovieContract.MovieEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        mMoviesAdapter.swapCursor(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mMoviesAdapter.swapCursor(null);
     }
 
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener{
@@ -347,7 +321,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-/*
+
     public void loadFavoritesData() {
 
         Uri uri = MovieContract.BASE_CONTENT_URI;
@@ -366,22 +340,20 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         while(c.moveToNext())
         {
-            postersF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_POSTER_PATH)));
-            commentsF.add(convertStringToArrayList(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_REVIEW))));
-            titlesF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_TITLE)));
-            overviewsF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_OVERVIEW)));
-            youtubes1F.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_YOUTUBE1)));
-            youtubes2F.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_YOUTUBE2)));
-            datesF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_DATE)));
-            ratingsF.add(c.getString(c.getColumnIndex(MovieContract.MovieEntry.COLUMN_RATING)));
+            postersF.add(c.getString(COL_MOVIE_POSTER_PATH));
+            commentsF.add(convertStringToArrayList(c.getString(COL_MOVIE_REVIEW)));
+            titlesF.add(c.getString(COL_MOVIE_TITLE));
+            overviewsF.add(c.getString(COL_MOVIE_OVERVIEW));
+            youtubes1F.add(c.getString(COL_MOVIE_YOUTUBE1));
+            youtubes2F.add(c.getString(COL_MOVIE_YOUTUBE2));
+            datesF.add(c.getString(COL_MOVIE_DATE));
+            ratingsF.add(c.getString(COL_MOVIE_RATING));
             favorited.add(true);
 
         }
 
         c.close();
     }
-
-*/
 
     public class ImageLoadTask extends AsyncTask<Void, Void, ArrayList<String>> {
 

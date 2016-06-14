@@ -3,6 +3,7 @@ package com.example.prashant.popmovies;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -19,11 +20,12 @@ import android.widget.RelativeLayout;
 import android.support.v7.widget.ShareActionProvider;
 import android.widget.TextView;
 
+import com.example.prashant.popmovies.data.MovieContract;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DetailActivityFragment extends Fragment {
+public class DetailActivityFragment extends Fragment  {
 
     public static String youtube1;
     public static String youtube2;
@@ -36,8 +38,8 @@ public class DetailActivityFragment extends Fragment {
     public static boolean favorite;
     public static ArrayList<String> comments;
     public static Button b;
-    private ShareActionProvider mShareActionProvider;
 
+    private ShareActionProvider mShareActionProvider;
 
     public DetailActivityFragment() {
         setHasOptionsMenu(true);
@@ -49,6 +51,7 @@ public class DetailActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         Intent intent = getActivity().getIntent();
         getActivity().setTitle("Movie Details");
+
 
         review = null;
         if(intent !=null && intent.hasExtra("overview"))
@@ -134,23 +137,19 @@ public class DetailActivityFragment extends Fragment {
 
         }
         b = (Button)rootView.findViewById(R.id.favorite);
-        if(intent !=null && intent.hasExtra("favorite"))
-        {
+        if(intent !=null && intent.hasExtra("favorite")) {
             favorite = intent.getBooleanExtra("favorite", false);
-            if(!favorite)
-            {
+            if (!favorite) {
                 b.setText("FAVORITE");
                 b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            }
-            else
-            {
+            } else {
                 b.setText("UNFAVORITE");
                 b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
             }
         }
-
         return rootView;
     }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
         inflater.inflate(R.menu.detail, menu);
@@ -163,6 +162,7 @@ public class DetailActivityFragment extends Fragment {
         }
 
     }
+
     private Intent createShareIntent()
     {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
