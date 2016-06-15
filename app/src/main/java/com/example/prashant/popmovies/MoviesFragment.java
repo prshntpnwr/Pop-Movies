@@ -61,25 +61,25 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     static PreferenceChangeListener listener;
     static SharedPreferences prefs;
     static boolean sortByFavorites;
-    static ArrayList<String> postersF;
-    static ArrayList<String> titlesF;
-    static ArrayList<String> datesF;
-    static ArrayList<String> ratingsF;
-    static ArrayList<String> youtubes1F;
-    static ArrayList<String> youtubes2F;
-    static ArrayList<ArrayList<String>> commentsF;
-    static ArrayList<String> overviewsF;
+    static ArrayList<String> postersF = new ArrayList<String>();
+    static ArrayList<String> titlesF= new ArrayList<String>();
+    static ArrayList<String> datesF= new ArrayList<String>();
+    static ArrayList<String> ratingsF= new ArrayList<String>();
+    static ArrayList<String> youtubes1F= new ArrayList<String>();
+    static ArrayList<String> youtubes2F= new ArrayList<String>();
+    static ArrayList<ArrayList<String>> commentsF= new ArrayList<ArrayList<String>>();
+    static ArrayList<String> overviewsF= new ArrayList<String>();
 
-    static ArrayList<String> overviews;
-    static ArrayList<String> titles;
-    static ArrayList<String> dates;
-    static ArrayList<String> ratings;
-    static ArrayList<String> youtubes1;
-    static ArrayList<String> youtubes2;
-    static ArrayList<String> ids;
-    static ArrayList<String> posters;
-    static ArrayList<Boolean> favorited;
-    static ArrayList<ArrayList<String>> comments;
+    static ArrayList<String> overviews = new ArrayList<String>();
+    static ArrayList<String> titles= new ArrayList<String>();
+    static ArrayList<String> dates= new ArrayList<String>();
+    static ArrayList<String> ratings= new ArrayList<String>();
+    static ArrayList<String> youtubes1= new ArrayList<String>();
+    static ArrayList<String> youtubes2= new ArrayList<String>();
+    static ArrayList<String> ids= new ArrayList<String>();
+    static ArrayList<String> posters= new ArrayList<String>();
+    static ArrayList<Boolean> favorited= new ArrayList<Boolean>();
+    static ArrayList<ArrayList<String>> comments = new ArrayList<ArrayList<String>>();
 
     private static final int MOVIE_LOADER_ID = 0;
 
@@ -314,12 +314,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         return result;
     }
 
-
-
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
+        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
         return new CursorLoader(getActivity(),
                 MovieContract.BASE_CONTENT_URI,
                 null,
@@ -332,15 +330,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-        postersF = new ArrayList<String>();
-        titlesF = new ArrayList<String>();
-        datesF = new ArrayList<String>();
-        overviewsF = new ArrayList<String>();
-        favorited = new ArrayList<Boolean>();
-        commentsF = new ArrayList<ArrayList<String>>();
-        youtubes1F = new ArrayList<String>();
-        youtubes2F = new ArrayList<String>();
-        ratingsF = new ArrayList<String>();
+
 
         if(cursor==null) return;
 
