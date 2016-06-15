@@ -266,6 +266,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         //loadFavoritesData();
 
+
         if(sortByFavorites)
         {
             if(postersF.size()==0)
@@ -313,18 +314,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         return result;
     }
 
-    @Override public void onResume() {
-        super.onResume();
-        initLoader();
 
-    }
 
-    public void initLoader() {
-        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
-        cursor = getActivity().getContentResolver()
-                .query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
-
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -339,7 +330,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
         postersF = new ArrayList<String>();
         titlesF = new ArrayList<String>();
@@ -351,18 +342,18 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         youtubes2F = new ArrayList<String>();
         ratingsF = new ArrayList<String>();
 
-        if(c==null) return;
+        if(cursor==null) return;
 
-        while(c.moveToNext())
+        while(cursor.moveToNext())
         {
-            postersF.add(c.getString(COL_MOVIE_POSTER_PATH));
-            commentsF.add(convertStringToArrayList(c.getString(COL_MOVIE_REVIEW)));
-            titlesF.add(c.getString(COL_MOVIE_TITLE));
-            overviewsF.add(c.getString(COL_MOVIE_OVERVIEW));
-            youtubes1F.add(c.getString(COL_MOVIE_YOUTUBE1));
-            youtubes2F.add(c.getString(COL_MOVIE_YOUTUBE2));
-            datesF.add(c.getString(COL_MOVIE_DATE));
-            ratingsF.add(c.getString(COL_MOVIE_RATING));
+            postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
+            commentsF.add(convertStringToArrayList(cursor.getString(COL_MOVIE_REVIEW)));
+            titlesF.add(cursor.getString(COL_MOVIE_TITLE));
+            overviewsF.add(cursor.getString(COL_MOVIE_OVERVIEW));
+            youtubes1F.add(cursor.getString(COL_MOVIE_YOUTUBE1));
+            youtubes2F.add(cursor.getString(COL_MOVIE_YOUTUBE2));
+            datesF.add(cursor.getString(COL_MOVIE_DATE));
+            ratingsF.add(cursor.getString(COL_MOVIE_RATING));
             favorited.add(true);
 
         }
