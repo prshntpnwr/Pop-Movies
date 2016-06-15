@@ -238,6 +238,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onStart() {
 
+        super.onStart();
+
         postersF = new ArrayList<String>();
         titlesF = new ArrayList<String>();
         datesF = new ArrayList<String>();
@@ -248,8 +250,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         youtubes2F = new ArrayList<String>();
         ratingsF = new ArrayList<String>();
 
-
-        super.onStart();
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         listener = new PreferenceChangeListener();
         prefs.registerOnSharedPreferenceChangeListener(listener);
@@ -273,14 +273,13 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             sortByPop = false;
             sortByFavorites=true;
         }
+
         TextView textView = new TextView(getActivity());
-        LinearLayout layout = (LinearLayout)getActivity().findViewById(R.id.linearlayout);
-
-        //loadFavoritesData();
-
+        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
 
         if(sortByFavorites)
         {
+            getLoaderManager().getLoader(MOVIE_LOADER_ID);
             if(postersF.size()==0)
             {
                 textView.setText("You have no favorites movies.");
@@ -292,11 +291,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 gridview.setVisibility(GridView.VISIBLE);
                 layout.removeView(textView);
             }
-            if(postersF!=null&&getActivity()!=null)
-            {
-                ImageAdapter adapter = new ImageAdapter(getActivity(),postersF,width);
-                gridview.setAdapter(adapter);
-            }
+
         }
         else {
             gridview.setVisibility(GridView.VISIBLE);
@@ -342,8 +337,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-
-
         if(cursor==null) return;
 
         while(cursor.moveToNext())
@@ -358,6 +351,12 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             ratingsF.add(cursor.getString(COL_MOVIE_RATING));
             favorited.add(true);
 
+        }
+
+        if(postersF!=null&&getActivity()!=null)
+        {
+            ImageAdapter adapter = new ImageAdapter(getActivity(),postersF,width);
+            gridview.setAdapter(adapter);
         }
 
     }
