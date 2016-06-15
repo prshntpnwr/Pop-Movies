@@ -250,7 +250,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         youtubes2F = new ArrayList<String>();
         ratingsF = new ArrayList<String>();
 
-
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         listener = new PreferenceChangeListener();
         prefs.registerOnSharedPreferenceChangeListener(listener);
@@ -280,18 +279,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         if(sortByFavorites)
         {
-            getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
-            if(postersF.size()==0)
-            {
-                textView.setText("You have no favorites movies.");
-                if(layout.getChildCount()==1)
-                    layout.addView(textView);
-                gridview.setVisibility(GridView.GONE);
-            }
-            else{
-                gridview.setVisibility(GridView.VISIBLE);
-                layout.removeView(textView);
-            }
+            getLoaderManager().getLoader(MOVIE_LOADER_ID);
 
         }
         else {
@@ -338,6 +326,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
+        postersF = new ArrayList<String>();
 
         if(cursor==null) return;
 
@@ -355,6 +344,20 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         }
 
+        TextView textView = new TextView(getActivity());
+        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
+
+        if(postersF.size()==0)
+        {
+            textView.setText("You have no favorites movies.");
+            if(layout.getChildCount()==1)
+                layout.addView(textView);
+            gridview.setVisibility(GridView.GONE);
+        }
+        else{
+            gridview.setVisibility(GridView.VISIBLE);
+            layout.removeView(textView);
+        }
         if(postersF!=null&&getActivity()!=null)
         {
             ImageAdapter adapter = new ImageAdapter(getActivity(),postersF,width);
