@@ -18,6 +18,7 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -51,12 +52,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     private static final String SELECTED_KEY = "selected_position";
 
-    private Cursor cursor;
-
     static int width;
     static boolean sortByPop = true;
     static String api_key = "b7f57ee32644eb6ddfdca9ca38b5513e";
-    static ArrayList<String> fposters;
 
     static PreferenceChangeListener listener;
     static SharedPreferences prefs;
@@ -84,26 +82,28 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     private static final int MOVIE_LOADER_ID = 0;
 
     private static final String[] DETAIL_COLUMNS = {
-            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
-            MovieContract.MovieEntry.COLUMN_DATE,
+            //MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
+            MovieContract.MovieEntry.COLUMN_MOVIE_ID,
             MovieContract.MovieEntry.COLUMN_POSTER_PATH,
             MovieContract.MovieEntry.COLUMN_RATING,
-            MovieContract.MovieEntry.COLUMN_OVERVIEW,
-            MovieContract.MovieEntry.COLUMN_REVIEW,
             MovieContract.MovieEntry.COLUMN_TITLE,
+            MovieContract.MovieEntry.COLUMN_REVIEW,
             MovieContract.MovieEntry.COLUMN_YOUTUBE1,
-            MovieContract.MovieEntry.COLUMN_YOUTUBE2
+            MovieContract.MovieEntry.COLUMN_YOUTUBE2,
+            MovieContract.MovieEntry.COLUMN_OVERVIEW,
+            MovieContract.MovieEntry.COLUMN_DATE
     };
 
+
     static final int COL_MOVIE_ID = 0;
-    static final int COL_MOVIE_DATE = 1;
-    static final int COL_MOVIE_POSTER_PATH = 2;
-    static final int COL_MOVIE_RATING = 3;
-    static final int COL_MOVIE_OVERVIEW = 4;
-    static final int COL_MOVIE_REVIEW = 5;
-    static final int COL_MOVIE_TITLE = 6;
-    static final int COL_MOVIE_YOUTUBE1 = 7;
-    static final int COL_MOVIE_YOUTUBE2 = 8;
+    static final int COL_MOVIE_POSTER_PATH = 1;
+    static final int COL_MOVIE_RATING = 2;
+    static final int COL_MOVIE_TITLE = 3;
+    static final int COL_MOVIE_REVIEW = 4;
+    static final int COL_MOVIE_YOUTUBE1 = 5;
+    static final int COL_MOVIE_YOUTUBE2 = 6;
+    static final int COL_MOVIE_OVERVIEW = 7;
+    static final int COL_MOVIE_DATE = 8;
 
     public interface Callback {
         /**
@@ -114,8 +114,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     public MoviesFragment() {
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -234,7 +232,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         return result;
     }
 
-
     @Override
     public void onStart() {
 
@@ -277,11 +274,12 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
 
-        if(sortByFavorites)
-        {
+        if(sortByFavorites) {
+
             getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
 
         }
+
         else {
             gridview.setVisibility(GridView.VISIBLE);
             layout.removeView(textView);
@@ -312,11 +310,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-
+        //getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
         return new CursorLoader(getActivity(),
                 MovieContract.BASE_CONTENT_URI,
-                null,
+                DETAIL_COLUMNS,
                 null,
                 null,
                 "title"
@@ -326,9 +323,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-        postersF = new ArrayList<String>();
+        //postersF = new ArrayList<String>();
 
-        if(cursor==null) return;
+        if (cursor == null) return;
 
         while(cursor.moveToNext())
         {
@@ -347,22 +344,20 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         TextView textView = new TextView(getActivity());
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
 
-        if(postersF.size()==0)
-        {
+        if (postersF.size() == 0) {
             textView.setText("You have no favorites movies.");
-            if(layout.getChildCount()==1)
+            if (layout.getChildCount() == 1)
                 layout.addView(textView);
             gridview.setVisibility(GridView.GONE);
-        }
-        else{
+        } else {
             gridview.setVisibility(GridView.VISIBLE);
             layout.removeView(textView);
         }
-        if(postersF!=null&&getActivity()!=null)
-        {
-            ImageAdapter adapter = new ImageAdapter(getActivity(),postersF,width);
+        if (postersF != null && getActivity() != null) {
+            ImageAdapter adapter = new ImageAdapter(getActivity(), postersF, width);
             gridview.setAdapter(adapter);
         }
+
 
     }
 
@@ -412,8 +407,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         public String[] getPathsFromAPI(boolean sortbypop) {
 
-            while(true)
-            {
+            while(true) {
+
                 HttpURLConnection urlConnection = null;
                 BufferedReader reader = null;
                 String JSONResult;

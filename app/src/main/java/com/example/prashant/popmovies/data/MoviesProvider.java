@@ -29,7 +29,7 @@ public class MoviesProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,String[] selectionArgs,
                         String sortOrder) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        Cursor retCursor = db.query(MovieContract.MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);;
+        Cursor retCursor = db.query(MovieContract.MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
 
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
 
