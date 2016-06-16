@@ -90,8 +90,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             MovieContract.MovieEntry.COLUMN_REVIEW,
             MovieContract.MovieEntry.COLUMN_YOUTUBE1,
             MovieContract.MovieEntry.COLUMN_YOUTUBE2,
-            MovieContract.MovieEntry.COLUMN_OVERVIEW,
-            MovieContract.MovieEntry.COLUMN_DATE
+            MovieContract.MovieEntry.COLUMN_DATE,
+            MovieContract.MovieEntry.COLUMN_OVERVIEW
+
     };
 
 

@@ -49,9 +49,11 @@ public class MovieContract {
 
         public static final String COLUMN_YOUTUBE2 = "youtube2";
 
+        public static final String COLUMN_DATE = "date";
+
         public static final String COLUMN_OVERVIEW = "overview";
 
-        public static final String COLUMN_DATE = "date";
+
 
         public static Uri buildMovieUri(long id) {
             //ContentUris.withAppendedId() is a helper method to create an id-based URI
