@@ -83,7 +83,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     private static final String[] DETAIL_COLUMNS = {
             //MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
-            //MovieContract.MovieEntry.COLUMN_MOVIE_ID,
+            MovieContract.MovieEntry.COLUMN_ID,
             MovieContract.MovieEntry.COLUMN_POSTER_PATH,
             MovieContract.MovieEntry.COLUMN_RATING,
             MovieContract.MovieEntry.COLUMN_TITLE,
@@ -96,7 +96,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     };
 
 
-   // static final int COL_MOVIE_ID = 0;
+    static final int COL_ID = 0;
     static final int COL_MOVIE_POSTER_PATH = 1;
     static final int COL_MOVIE_RATING = 2;
     static final int COL_MOVIE_TITLE = 3;
