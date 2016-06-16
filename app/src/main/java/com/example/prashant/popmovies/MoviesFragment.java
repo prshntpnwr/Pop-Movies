@@ -314,7 +314,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         //getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
         return new CursorLoader(getActivity(),
                 MovieContract.BASE_CONTENT_URI,
-                DETAIL_COLUMNS,
+                null,
                 null,
                 null,
                 "title"
