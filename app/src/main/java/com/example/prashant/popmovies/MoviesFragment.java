@@ -358,6 +358,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             ImageAdapter adapter = new ImageAdapter(getActivity(), postersF, width);
             gridview.setAdapter(adapter);
         }
+
+
     }
 
     @Override
