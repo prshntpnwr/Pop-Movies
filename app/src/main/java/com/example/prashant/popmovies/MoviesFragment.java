@@ -279,7 +279,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         if(sortByFavorites)
         {
-            getLoaderManager().getLoader(MOVIE_LOADER_ID);
+            getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
 
         }
         else {
@@ -313,7 +313,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
+
         return new CursorLoader(getActivity(),
                 MovieContract.BASE_CONTENT_URI,
                 null,
