@@ -42,15 +42,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+import com.example.prashant.popmovies.DetailActivity;
 public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ImageAdapter adapter;
 
     static GridView gridview;
-    //private int mPosition = GridView.INVALID_POSITION;
+    private int mPosition = GridView.INVALID_POSITION;
 
-   // private static final String SELECTED_KEY = "selected_position";
+    private static final String SELECTED_KEY = "selected_position";
 
     static int width;
     static boolean sortByPop = true;
@@ -82,8 +82,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     private static final int MOVIE_LOADER_ID = 0;
 
     private static final String[] DETAIL_COLUMNS = {
-            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
-            //MovieContract.MovieEntry.COLUMN_ID,
+            //MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
+            MovieContract.MovieEntry.COLUMN_MOVIE_ID,
             MovieContract.MovieEntry.COLUMN_POSTER_PATH,
             MovieContract.MovieEntry.COLUMN_RATING,
             MovieContract.MovieEntry.COLUMN_TITLE,
@@ -96,7 +96,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     };
 
 
-    static final int COL_ID = 0;
+    static final int COL_MOVIE_ID = 0;
     static final int COL_MOVIE_POSTER_PATH = 1;
     static final int COL_MOVIE_RATING = 2;
     static final int COL_MOVIE_TITLE = 3;
@@ -181,14 +181,18 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                              startActivity(intent);
                          }
-                         //mPosition = position;
+                         mPosition = position;
                      }
                  }
                 );
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
         return rootView;
     }
-/*
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
@@ -200,7 +204,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         super.onSaveInstanceState(outState);
     }
 
- */
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener{
 
         @Override
@@ -275,6 +278,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         if(sortByFavorites) {
 
             getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
+            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, this);
 
         }
 
@@ -308,11 +312,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        //getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
-        return new CursorLoader(
-                getActivity(),
+
+        return new CursorLoader(getActivity(),
                 MovieContract.BASE_CONTENT_URI,
-                null,
+                DETAIL_COLUMNS,
                 null,
                 null,
                 "title"
@@ -326,8 +329,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         if (cursor == null) return;
 
-        while(cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
             postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
             commentsF.add(convertStringToArrayList(cursor.getString(COL_MOVIE_REVIEW)));
             titlesF.add(cursor.getString(COL_MOVIE_TITLE));
