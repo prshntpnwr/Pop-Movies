@@ -48,9 +48,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     private ImageAdapter adapter;
 
     static GridView gridview;
-    private int mPosition = GridView.INVALID_POSITION;
+    //private int mPosition = GridView.INVALID_POSITION;
 
-    private static final String SELECTED_KEY = "selected_position";
+   // private static final String SELECTED_KEY = "selected_position";
 
     static int width;
     static boolean sortByPop = true;
@@ -181,18 +181,14 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                              startActivity(intent);
                          }
-                         mPosition = position;
+                         //mPosition = position;
                      }
                  }
                 );
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
-            mPosition = savedInstanceState.getInt(SELECTED_KEY);
-        }
-
         return rootView;
     }
-
+/*
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
@@ -204,6 +200,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         super.onSaveInstanceState(outState);
     }
 
+ */
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener{
 
         @Override
