@@ -82,8 +82,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     private static final int MOVIE_LOADER_ID = 0;
 
     private static final String[] DETAIL_COLUMNS = {
-            //MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
-            MovieContract.MovieEntry.COLUMN_ID,
+            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
+            //MovieContract.MovieEntry.COLUMN_ID,
             MovieContract.MovieEntry.COLUMN_POSTER_PATH,
             MovieContract.MovieEntry.COLUMN_RATING,
             MovieContract.MovieEntry.COLUMN_TITLE,
@@ -309,7 +309,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         //getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
-        return new CursorLoader(getActivity(),
+        return new CursorLoader(
+                getActivity(),
                 MovieContract.BASE_CONTENT_URI,
                 null,
                 null,
