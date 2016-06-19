@@ -359,7 +359,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             gridview.setAdapter(adapter);
         }
 
-
     }
 
     @Override
