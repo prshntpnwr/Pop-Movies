@@ -50,7 +50,6 @@ public class DetailActivityFragment extends Fragment  {
         Intent intent = getActivity().getIntent();
         getActivity().setTitle("Movie Details");
 
-
         review = null;
         if(intent !=null && intent.hasExtra("overview"))
         {
@@ -134,6 +133,7 @@ public class DetailActivityFragment extends Fragment  {
             }
 
         }
+
         b = (Button)rootView.findViewById(R.id.favorite);
         if(intent !=null && intent.hasExtra("favorite")) {
             favorite = intent.getBooleanExtra("favorite", false);
@@ -158,7 +158,6 @@ public class DetailActivityFragment extends Fragment  {
         {
             mShareActionProvider.setShareIntent(createShareIntent());
         }
-
     }
 
     private Intent createShareIntent()

@@ -69,10 +69,9 @@ public class DetailActivity extends ActionBarActivity {
     public void favorite(View v){
         Button b = (Button) findViewById(R.id.favorite);
         if (b.getText().equals("FAVORITE")){
-
+           // Log.i(b.getText() + "", " ----BUTTON TAG IS THERE-----");
             b.setText("UNFAVORITE");
             b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
-
 
             ContentValues values = new ContentValues();
             values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH,DetailActivityFragment.poster);
@@ -95,7 +94,6 @@ public class DetailActivity extends ActionBarActivity {
                     "title=?", new String[]{DetailActivityFragment.title});
         }
     }
-
 
     public void trailer1(View v)
     {

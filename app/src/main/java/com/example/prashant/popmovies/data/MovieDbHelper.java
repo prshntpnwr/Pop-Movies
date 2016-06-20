@@ -34,7 +34,7 @@ public class MovieDbHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIE_TABLE);
     }
 
-    //MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " +
+    //MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " + MovieEntry.COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {

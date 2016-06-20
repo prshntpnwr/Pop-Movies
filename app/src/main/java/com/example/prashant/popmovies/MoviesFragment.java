@@ -15,10 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -42,10 +40,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.example.prashant.popmovies.DetailActivity;
+
 public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ImageAdapter adapter;
+    Cursor cursor;
 
     static GridView gridview;
     private int mPosition = GridView.INVALID_POSITION;
@@ -82,7 +81,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     private static final int MOVIE_LOADER_ID = 0;
 
     private static final String[] DETAIL_COLUMNS = {
-            //MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID,
             MovieContract.MovieEntry.COLUMN_MOVIE_ID,
             MovieContract.MovieEntry.COLUMN_POSTER_PATH,
             MovieContract.MovieEntry.COLUMN_RATING,
@@ -90,11 +88,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             MovieContract.MovieEntry.COLUMN_REVIEW,
             MovieContract.MovieEntry.COLUMN_YOUTUBE1,
             MovieContract.MovieEntry.COLUMN_YOUTUBE2,
-            MovieContract.MovieEntry.COLUMN_DATE,
-            MovieContract.MovieEntry.COLUMN_OVERVIEW
+            MovieContract.MovieEntry.COLUMN_OVERVIEW,
+            MovieContract.MovieEntry.COLUMN_DATE
 
     };
-
 
     static final int COL_MOVIE_ID = 0;
     static final int COL_MOVIE_POSTER_PATH = 1;
@@ -133,7 +130,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             width = size.x / 3;
         } else width = size.x / 2;
 
-
         if (getActivity() != null) {
             ArrayList<String> array = new ArrayList<String>();
             ImageAdapter adapter = new ImageAdapter(getActivity(), array, width);
@@ -142,7 +138,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             gridview.setColumnWidth(width);
 
             gridview.setAdapter(adapter);
-
         }
 
         gridview.setOnItemClickListener
@@ -150,6 +145,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                      @Override
                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                          if (!sortByFavorites) {
                              favorited = bindFavoritesToMovies();
                              Intent intent = new Intent(getActivity(), DetailActivity.class).
@@ -164,12 +160,11 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                      putExtra("favorite", favorited.get(position));
 
                              startActivity(intent);
-
                          }
 
                          else{
                              Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                     putExtra("overriew", overviewsF.get(position)).
+                                     putExtra("overview", overviewsF.get(position)).
                                      putExtra("poster", postersF.get(position)).
                                      putExtra("title", titlesF.get(position)).
                                      putExtra("date", datesF.get(position)).
@@ -235,7 +230,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onStart() {
-
         super.onStart();
 
         postersF = new ArrayList<String>();
@@ -248,10 +242,48 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         youtubes2F = new ArrayList<String>();
         ratingsF = new ArrayList<String>();
 
+        getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
+    }
+
+    public static ArrayList<String> convertStringToArrayList(String s) {
+
+        ArrayList<String> result = new ArrayList<>(Arrays.asList(s.split("divider123")));
+        return result;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        return new CursorLoader(getActivity(),
+                MovieContract.BASE_CONTENT_URI,
+                DETAIL_COLUMNS,
+                null,
+                null,
+                "title"
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        if (cursor == null) return;
+
+        cursor.moveToPosition(-1);
+        while (cursor.moveToNext()) {
+            postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
+            commentsF.add(convertStringToArrayList(cursor.getString(COL_MOVIE_REVIEW)));
+            titlesF.add(cursor.getString(COL_MOVIE_TITLE));
+            overviewsF.add(cursor.getString(COL_MOVIE_OVERVIEW));
+            youtubes1F.add(cursor.getString(COL_MOVIE_YOUTUBE1));
+            youtubes2F.add(cursor.getString(COL_MOVIE_YOUTUBE2));
+            datesF.add(cursor.getString(COL_MOVIE_DATE));
+            ratingsF.add(cursor.getString(COL_MOVIE_RATING));
+            favorited.add(true);
+        }
+
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         listener = new PreferenceChangeListener();
         prefs.registerOnSharedPreferenceChangeListener(listener);
-
 
         if(prefs.getString("sortby","popularity").equals("popularity"))
         {
@@ -276,12 +308,21 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
 
         if(sortByFavorites) {
+            if (postersF.size() == 0) {
+                textView.setText("You have no favorites movies.");
+                if (layout.getChildCount() == 1)
+                    layout.addView(textView);
+                gridview.setVisibility(GridView.GONE);
+            } else {
+                gridview.setVisibility(GridView.VISIBLE);
+                layout.removeView(textView);
+            }
 
-            getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
-            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, this);
-
+            if (postersF != null && getActivity() != null) {
+                ImageAdapter adapter = new ImageAdapter(getActivity(), postersF, width);
+                gridview.setAdapter(adapter);
+            }
         }
-
         else {
             gridview.setVisibility(GridView.VISIBLE);
             layout.removeView(textView);
@@ -290,7 +331,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 new ImageLoadTask().execute();
 
             }
-
             else {
                 TextView textview1 = new TextView(getActivity());
                 LinearLayout layout1 = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
@@ -302,63 +342,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 gridview.setVisibility(GridView.GONE);
             }
         }
-    }
-
-    public static ArrayList<String> convertStringToArrayList(String s) {
-
-        ArrayList<String> result = new ArrayList<>(Arrays.asList(s.split("divider123")));
-        return result;
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-        return new CursorLoader(getActivity(),
-                MovieContract.BASE_CONTENT_URI,
-                DETAIL_COLUMNS,
-                null,
-                null,
-                "title"
-        );
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
-        //postersF = new ArrayList<String>();
-
-        if (cursor == null) return;
-
-        while (cursor.moveToNext()) {
-            postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
-            commentsF.add(convertStringToArrayList(cursor.getString(COL_MOVIE_REVIEW)));
-            titlesF.add(cursor.getString(COL_MOVIE_TITLE));
-            overviewsF.add(cursor.getString(COL_MOVIE_OVERVIEW));
-            youtubes1F.add(cursor.getString(COL_MOVIE_YOUTUBE1));
-            youtubes2F.add(cursor.getString(COL_MOVIE_YOUTUBE2));
-            datesF.add(cursor.getString(COL_MOVIE_DATE));
-            ratingsF.add(cursor.getString(COL_MOVIE_RATING));
-            favorited.add(true);
-
-        }
-
-        TextView textView = new TextView(getActivity());
-        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
-
-        if (postersF.size() == 0) {
-            textView.setText("You have no favorites movies.");
-            if (layout.getChildCount() == 1)
-                layout.addView(textView);
-            gridview.setVisibility(GridView.GONE);
-        } else {
-            gridview.setVisibility(GridView.VISIBLE);
-            layout.removeView(textView);
-        }
-        if (postersF != null && getActivity() != null) {
-            ImageAdapter adapter = new ImageAdapter(getActivity(), postersF, width);
-            gridview.setAdapter(adapter);
-        }
-
     }
 
     @Override
@@ -656,6 +639,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             }
             return result;
         }
+
         public String[] getStringsFromJSON(String JSONStringParam, String param)  throws JSONException
         {
             JSONObject JSONString = new JSONObject(JSONStringParam);
@@ -679,6 +663,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             }
             return result;
         }
+
         public String[] getPathsFromJSON(String JSONStringParam) throws JSONException{
 
             JSONObject JSONString = new JSONObject(JSONStringParam);
