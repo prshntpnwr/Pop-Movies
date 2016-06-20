@@ -131,9 +131,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             ArrayList<String> array = new ArrayList<String>();
             ImageAdapter adapter = new ImageAdapter(getActivity(), array, width);
             gridview = (GridView) rootView.findViewById(R.id.gridview_poster);
-
             gridview.setColumnWidth(width);
-
             gridview.setAdapter(adapter);
         }
 
@@ -154,13 +152,11 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                      putExtra("youtube2", youtubes2.get(position)).
                                      putExtra("comments", comments.get(position)).
                                      putExtra("favorite", favorited.get(position));
-
                              startActivity(intent);
-
                          }
                          else{
                              Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                     putExtra("overriew", overviewsF.get(position)).
+                                     putExtra("overview", overviewsF.get(position)).
                                      putExtra("poster", postersF.get(position)).
                                      putExtra("title", titlesF.get(position)).
                                      putExtra("date", datesF.get(position)).
@@ -172,20 +168,19 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                              startActivity(intent);
                          }
-                         //mPosition = position;
+                         mPosition = position;
                      }
 
                  }
                 );
 
-       /* if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
-        }*/
-
+        }
         return rootView;
     }
 
-  /*  @Override
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
         // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
@@ -195,10 +190,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         }
         super.onSaveInstanceState(outState);
     }
-*/
 
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener{
-
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
@@ -210,7 +203,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         ArrayList<Boolean> result = new ArrayList<>();
         for(int i = 0; i < titles.size(); i++) {
-
             result.add(false);
         }
         for(String favoritedTitles: titlesF) {

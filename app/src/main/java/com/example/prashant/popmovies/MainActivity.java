@@ -8,12 +8,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.prashant.popmovies.MoviesFragment;
+import com.example.prashant.popmovies.R;
+import com.example.prashant.popmovies.SettingsActivity;
+
 public class MainActivity extends ActionBarActivity {
 
     public static boolean TABLET = false;
-    public static boolean mTwoPane;
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
+    public boolean mTwoPane;
 
     public boolean isTablet(Context context)
     {
@@ -32,16 +36,21 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         if (findViewById(R.id.movie_detail_container) != null) {
+            // The detail container view will be present only in the large-screen layouts
+            // (res/layout-sw600dp). If this view is present, then the activity should be
+            // in two-pane mode.
             mTwoPane = true;
             TABLET = isTablet(this);
-
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.movie_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                         .commit();
-            }else {
-                mTwoPane = false;
             }
+        } else {
+            mTwoPane = false;
         }
     }
 
