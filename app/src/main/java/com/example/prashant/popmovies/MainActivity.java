@@ -1,6 +1,8 @@
 package com.example.prashant.popmovies;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -8,10 +10,11 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
-    //public static boolean TABLET = false;
+    public static boolean TABLET = false;
     public static boolean mTwoPane;
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
-    /*
+
     public boolean isTablet(Context context)
     {
         boolean xlarge = ((context.getResources().getConfiguration().screenLayout
@@ -20,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
                 & Configuration.SCREENLAYOUT_SIZE_MASK)==Configuration.SCREENLAYOUT_SIZE_LARGE);
 
         return(xlarge||large);
-    }*/
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.movie_detail_container, new MoviesFragment())
+                        .replace(R.id.movie_detail_container, new MoviesFragment(), DETAILFRAGMENT_TAG)
                         .commit();
             }else {
                 mTwoPane = false;

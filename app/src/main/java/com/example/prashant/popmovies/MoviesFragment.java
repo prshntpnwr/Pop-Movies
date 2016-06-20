@@ -126,7 +126,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         //to set the poster in gridview
         // 3 poster in each row if table and 2 for the mobile phone
-        if (MainActivity.TABLET) {
+        if (MainActivity.mTwoPane) {
             width = size.x / 3;
         } else width = size.x / 2;
 
@@ -145,7 +145,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                      @Override
                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                          if (!sortByFavorites) {
                              favorited = bindFavoritesToMovies();
                              Intent intent = new Intent(getActivity(), DetailActivity.class).
@@ -177,9 +176,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                              startActivity(intent);
                          }
                          mPosition = position;
+
                      }
-                 }
-                );
+                });
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
