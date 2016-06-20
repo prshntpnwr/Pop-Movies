@@ -31,18 +31,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TABLET=isTablet(this);
-       /* if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new MoviesFragment())
-                    .commit();
-        }*/
         if (findViewById(R.id.movie_detail_container) != null) {
             mTwoPane = true;
+            TABLET = isTablet(this);
 
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.movie_detail_container, new MoviesFragment(), DETAILFRAGMENT_TAG)
+                        .replace(R.id.movie_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                         .commit();
             }else {
                 mTwoPane = false;

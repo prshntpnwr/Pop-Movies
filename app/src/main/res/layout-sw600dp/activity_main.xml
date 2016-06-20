@@ -18,13 +18,12 @@ This layout is a two-pane layout for the Items master/detail flow.
     android:layout_width="0dp"
     android:layout_height="match_parent"
     android:layout_weight="2"
-    tools:layout="@layout/fragment_main"/>
+    tools:layout="@android:layout/simple_gallery_item"/>
 
-    <FrameLayout
+<FrameLayout
     android:id="@+id/movie_detail_container"
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="2"
-    tools:layout="@layout/fragment_detail"/>
+    android:layout_weight="2"/>
 
 </LinearLayout>

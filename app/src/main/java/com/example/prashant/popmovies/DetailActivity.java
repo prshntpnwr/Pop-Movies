@@ -21,9 +21,10 @@ public class DetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movie_detail_container, new DetailActivityFragment())
+                    .add(R.id.movie_detail_container, new DetailFragment())
                     .commit();
         }
     }
@@ -58,14 +59,14 @@ public class DetailActivity extends ActionBarActivity {
             b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
 
             ContentValues values = new ContentValues();
-            values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH,DetailActivityFragment.poster);
-            values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW,DetailActivityFragment.overview);
-            values.put(MovieContract.MovieEntry.COLUMN_RATING,DetailActivityFragment.rating);
-            values.put(MovieContract.MovieEntry.COLUMN_DATE,DetailActivityFragment.date);
-            values.put(MovieContract.MovieEntry.COLUMN_REVIEW,DetailActivityFragment.review);
-            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE1,DetailActivityFragment.youtube1);
-            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE2, DetailActivityFragment.youtube2);
-            values.put(MovieContract.MovieEntry.COLUMN_TITLE, DetailActivityFragment.title);
+            values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, DetailFragment.poster);
+            values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW, DetailFragment.overview);
+            values.put(MovieContract.MovieEntry.COLUMN_RATING, DetailFragment.rating);
+            values.put(MovieContract.MovieEntry.COLUMN_DATE, DetailFragment.date);
+            values.put(MovieContract.MovieEntry.COLUMN_REVIEW, DetailFragment.review);
+            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE1, DetailFragment.youtube1);
+            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE2, DetailFragment.youtube2);
+            values.put(MovieContract.MovieEntry.COLUMN_TITLE, DetailFragment.title);
 
             getContentResolver().insert(MovieContract.BASE_CONTENT_URI, values);
 
@@ -75,23 +76,21 @@ public class DetailActivity extends ActionBarActivity {
             b.setText("FAVORITE");
             b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
             getContentResolver().delete(MovieContract.BASE_CONTENT_URI,
-                    "title=?", new String[]{DetailActivityFragment.title});
+                    "title=?", new String[]{DetailFragment.title});
         }
     }
 
     public void trailer1(View v)
     {
-        //launch activity with first youtube video
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=" + DetailActivityFragment.youtube1));
+                Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube1));
         startActivity(browserIntent);
         Toast.makeText(this,"Launching Trailer", Toast.LENGTH_SHORT).show();
     }
     public void trailer2(View v)
     {
-        //launch activity with second youtube video
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=" + DetailActivityFragment.youtube2));
+                Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube2));
         startActivity(browserIntent);
         Toast.makeText(this,"Launching Trailer", Toast.LENGTH_SHORT).show();
 

@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DetailActivityFragment extends Fragment  {
+public class DetailFragment extends Fragment  {
 
     public static String youtube1;
     public static String youtube2;
@@ -39,7 +39,7 @@ public class DetailActivityFragment extends Fragment  {
 
     private ShareActionProvider mShareActionProvider;
 
-    public DetailActivityFragment() {
+    public DetailFragment() {
         setHasOptionsMenu(true);
     }
 
