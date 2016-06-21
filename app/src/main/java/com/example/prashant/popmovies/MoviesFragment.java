@@ -134,6 +134,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             ImageAdapter adapter = new ImageAdapter(getActivity(), array, width);
             gridview = (GridView) rootView.findViewById(R.id.gridview_poster);
             //gridview.setColumnWidth(width);
+
             int mNumColumns = getContext().getResources().getInteger(R.integer.num_columns);
             gridview.setNumColumns(mNumColumns);
             gridview.setAdapter(adapter);
