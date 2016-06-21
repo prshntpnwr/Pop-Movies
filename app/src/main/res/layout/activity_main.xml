@@ -5,6 +5,7 @@
     android:name="com.example.prashant.popmovies.MoviesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.prashant.popmovies.MainActivity">
+    tools:context="com.example.prashant.popmovies.MainActivity"
+    tools:layout="@android:layout/list_content" >
 
 </RelativeLayout>

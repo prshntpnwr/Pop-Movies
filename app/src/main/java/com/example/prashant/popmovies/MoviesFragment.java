@@ -45,6 +45,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     private ImageAdapter adapter;
 
     static GridView gridview;
+    LinearLayout layout;
     private int mPosition = GridView.INVALID_POSITION;
 
     private static final String SELECTED_KEY = "selected_position";
@@ -114,6 +115,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        layout = (LinearLayout) rootView.findViewById(R.id.linearlayout);
 
         //It is a interface that apps use to talk or interact with the window manager
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
@@ -295,7 +297,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         }
 
         TextView textView = new TextView(getActivity());
-        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.linearlayout);
 
         if(sortByFavorites) {
             if (postersF.size() == 0) {

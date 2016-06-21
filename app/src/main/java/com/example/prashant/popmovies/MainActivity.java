@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
     public static boolean TABLET = false;
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
-    public boolean mTwoPane;
+    public static boolean mTwoPane;
 
     public boolean isTablet(Context context)
     {
