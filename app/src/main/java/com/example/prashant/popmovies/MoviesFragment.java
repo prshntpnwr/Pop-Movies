@@ -125,16 +125,16 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         //to set the poster in gridview
         // 3 poster in each row if table and 2 for the mobile phone
-        if (MainActivity.TABLET) {
-            width = size.x / 3;
-        } else width = size.x / 2;
+        if (MainActivity.mTwoPane) {
+            width = size.x / 6;
+        } else width = size.x / 4;
 
         if (getActivity() != null) {
             ArrayList<String> array = new ArrayList<String>();
             ImageAdapter adapter = new ImageAdapter(getActivity(), array, width);
             gridview = (GridView) rootView.findViewById(R.id.gridview_poster);
             gridview.setColumnWidth(width);
-            //gridview.setNumColumns(num_columns);
+            
             gridview.setAdapter(adapter);
         }
 
