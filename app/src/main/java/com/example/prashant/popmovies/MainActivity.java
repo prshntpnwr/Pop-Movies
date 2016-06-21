@@ -14,20 +14,9 @@ import com.example.prashant.popmovies.SettingsActivity;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static boolean TABLET = false;
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
     public static boolean mTwoPane;
-
-    public boolean isTablet(Context context)
-    {
-        boolean xlarge = ((context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)==4);
-        boolean large = ((context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)==Configuration.SCREENLAYOUT_SIZE_LARGE);
-
-        return(xlarge||large);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +29,6 @@ public class MainActivity extends ActionBarActivity {
             // (res/layout-sw600dp). If this view is present, then the activity should be
             // in two-pane mode.
             mTwoPane = true;
-            TABLET = isTablet(this);
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
