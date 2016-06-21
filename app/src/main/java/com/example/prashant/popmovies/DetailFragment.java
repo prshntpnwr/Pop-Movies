@@ -40,7 +40,6 @@ public class DetailFragment extends Fragment  {
     public static boolean favorite;
     public static ArrayList<String> comments;
     public static Button b;
-    static int width;
 
     private ShareActionProvider mShareActionProvider;
 
