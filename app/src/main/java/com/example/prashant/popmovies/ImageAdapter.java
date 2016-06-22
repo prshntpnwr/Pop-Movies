@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.prashant.popmovies.R;
 import com.squareup.picasso.Picasso;
@@ -54,7 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         imageView.setLayoutParams(
-                new ViewGroup.LayoutParams(
+                new LinearLayout.LayoutParams(
                         GridLayout.LayoutParams.MATCH_PARENT,
                         GridLayout.LayoutParams.MATCH_PARENT ) );
 
