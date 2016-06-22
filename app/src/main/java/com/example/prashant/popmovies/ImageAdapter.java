@@ -54,7 +54,7 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         imageView.setLayoutParams(
-                new GridLayout.LayoutParams().LayoutParams(
+                new ViewGroup.LayoutParams(
                         GridLayout.LayoutParams.MATCH_PARENT,
                         GridLayout.LayoutParams.MATCH_PARENT ) );
 
