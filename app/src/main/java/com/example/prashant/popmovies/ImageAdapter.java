@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import com.example.prashant.popmovies.R;
@@ -18,11 +19,11 @@ public class ImageAdapter extends BaseAdapter {
     private ArrayList<String> array;
     private int width;
 
-    public ImageAdapter(Context c, ArrayList<String> paths, int x)
+    public ImageAdapter(Context c, ArrayList<String> paths)
     {
         mContext = c;
         array=paths;
-        width = x;
+        //width = x;
     }
     @Override
     public int getCount() {
@@ -50,17 +51,25 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        Drawable d = resizeDrawable(mContext.getResources().getDrawable(R.drawable.placeholder));
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        imageView.setLayoutParams(
+                new ViewGroup.LayoutParams(
+                        GridLayout.LayoutParams.MATCH_PARENT,
+                        GridLayout.LayoutParams.MATCH_PARENT ) );
+
+        //Drawable d = resizeDrawable(mContext.getResources().getDrawable(R.drawable.placeholder));
+        Drawable d = mContext.getResources().getDrawable(R.drawable.placeholder);
         Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/" + array.get(position)).
-                resize(width, (int)(width*1.5)).placeholder(d).into(imageView);
+                placeholder(d).into(imageView);
 
         return imageView;
 
     }
-    private Drawable resizeDrawable(Drawable image)
+   /* private Drawable resizeDrawable(Drawable image)
     {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b,width, (int)(width*1.5),false);
         return new BitmapDrawable(mContext.getResources(),bitmapResized);
-    }
+    }*/
 }

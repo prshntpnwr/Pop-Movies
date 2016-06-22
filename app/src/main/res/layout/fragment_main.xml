@@ -5,7 +5,6 @@
     android:id="@+id/linearlayout"
     tools:context="layout.fragment_main">
 
-
     <GridView
         android:id="@+id/gridview_poster"
         android:layout_width="match_parent"

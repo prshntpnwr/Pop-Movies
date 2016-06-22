@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -120,20 +121,23 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         //It is a interface that apps use to talk or interact with the window manager
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        Point size = new Point();    // Point hold two interger coordinates
+        Point size = new Point();    // Point hold two integer coordinates
         display.getSize(size);
 
         //to set the poster in gridview
         // 3 poster in each row if table and 2 for the mobile phone
         if (MainActivity.mTwoPane) {
-            width = size.x / 6;
+           width = size.x / 6;
         } else width = size.x / 4;
 
         if (getActivity() != null) {
             ArrayList<String> array = new ArrayList<String>();
-            ImageAdapter adapter = new ImageAdapter(getActivity(), array, width);
+            ImageAdapter adapter = new ImageAdapter(getActivity(), array);
+
             gridview = (GridView) rootView.findViewById(R.id.gridview_poster);
-            gridview.setColumnWidth(width);
+            int mNumColumns = getContext().getResources().getInteger(R.integer.num_columns);
+
+            gridview.setNumColumns(mNumColumns);
             gridview.setAdapter(adapter);
         }
 
@@ -172,7 +176,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                          }
                          mPosition = position;
                      }
-
                  }
                 );
 
@@ -310,7 +313,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             }
 
             if (postersF != null && getActivity() != null) {
-                ImageAdapter adapter = new ImageAdapter(getActivity(), postersF, width);
+                ImageAdapter adapter = new ImageAdapter(getActivity(), postersF);
                 gridview.setAdapter(adapter);
             }
         }
@@ -370,7 +373,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             if (result != null && getActivity() != null) {
-                ImageAdapter adapter = new ImageAdapter(getActivity(), result, width);
+                ImageAdapter adapter = new ImageAdapter(getActivity(), result);
                 gridview.setAdapter(adapter);
 
             }
