@@ -234,7 +234,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
-        // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
+        // When no item is selected, mPosition will be set to gridview.INVALID_POSITION,
         // so check for that before storing.
         if (mPosition != GridView.INVALID_POSITION) {
             outState.putInt(SELECTED_KEY, mPosition);
@@ -247,7 +247,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
             getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
-            //onStart();
+
         }
     }
 
