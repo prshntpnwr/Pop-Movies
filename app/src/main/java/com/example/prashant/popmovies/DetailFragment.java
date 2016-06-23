@@ -58,7 +58,7 @@ public class DetailFragment extends Fragment  {
         if (savedInstanceState == null) {
             Bundle bundle = getArguments();
 
-            if (bundle!=null){
+            if (bundle != null) {
 
                 title = bundle.getString("title");
                 TextView tv = (TextView) rootView.findViewById(R.id.title);
@@ -79,16 +79,16 @@ public class DetailFragment extends Fragment  {
                 poster = bundle.getString("poster");
                 ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
                 Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
-                        MoviesFragment.width, (int)(MoviesFragment.width*1.5)).into(iv);
+                        MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(iv);
 
                 youtube1 = bundle.getString("youtube");
 
                 youtube2 = bundle.getString("youtube2");
 
-                b = (Button)rootView.findViewById(R.id.favorite);
+                b = (Button) rootView.findViewById(R.id.favorite);
 
                 comments = bundle.getStringArrayList("comments");
-                for(int i = 0; i < comments.size();i++) {
+                for (int i = 0; i < comments.size(); i++) {
                     LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
                     View divider = new View(getActivity());
                     TextView tv4 = new TextView(getActivity());
@@ -127,31 +127,34 @@ public class DetailFragment extends Fragment  {
                     b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
                 }
 
-                if (b.getText().equals("FAVORITE")){
+                b.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
 
-                    b.setText("UNFAVORITE");
-                    b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
+                        if (b.getText().equals("FAVORITE")) {
 
-                    ContentValues values = new ContentValues();
-                    values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH,DetailFragment.poster);
-                    values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW,DetailFragment.overview);
-                    values.put(MovieContract.MovieEntry.COLUMN_RATING,DetailFragment.rating);
-                    values.put(MovieContract.MovieEntry.COLUMN_DATE,DetailFragment.date);
-                    values.put(MovieContract.MovieEntry.COLUMN_REVIEW,DetailFragment.review);
-                    values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE1,DetailFragment.youtube1);
-                    values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE2, DetailFragment.youtube2);
-                    values.put(MovieContract.MovieEntry.COLUMN_TITLE, DetailFragment.title);
+                            b.setText("UNFAVORITE");
+                            b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
 
-                    getContext().getContentResolver().insert(MovieContract.BASE_CONTENT_URI, values);
+                            ContentValues values = new ContentValues();
+                            values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, DetailFragment.poster);
+                            values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW, DetailFragment.overview);
+                            values.put(MovieContract.MovieEntry.COLUMN_RATING, DetailFragment.rating);
+                            values.put(MovieContract.MovieEntry.COLUMN_DATE, DetailFragment.date);
+                            values.put(MovieContract.MovieEntry.COLUMN_REVIEW, DetailFragment.review);
+                            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE1, DetailFragment.youtube1);
+                            values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE2, DetailFragment.youtube2);
+                            values.put(MovieContract.MovieEntry.COLUMN_TITLE, DetailFragment.title);
 
-                }
+                            getContext().getContentResolver().insert(MovieContract.BASE_CONTENT_URI, values);
 
-                else if(b.getText().equals("UNFAVORITE")) {
-                    b.setText("FAVORITE");
-                    b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-                    getContext().getContentResolver().delete(MovieContract.BASE_CONTENT_URI,
-                            "title=?", new String[]{DetailFragment.title});
-                }
+                        } else if (b.getText().equals("UNFAVORITE")) {
+                            b.setText("FAVORITE");
+                            b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                            getContext().getContentResolver().delete(MovieContract.BASE_CONTENT_URI,
+                                    "title=?", new String[]{DetailFragment.title});
+                        }
+                    }
+                });
             }
         }
 
