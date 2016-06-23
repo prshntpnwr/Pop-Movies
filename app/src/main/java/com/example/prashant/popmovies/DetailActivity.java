@@ -30,7 +30,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-
 public class DetailActivity extends ActionBarActivity {
 
     @Override
@@ -62,7 +61,6 @@ public class DetailActivity extends ActionBarActivity {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -72,7 +70,6 @@ public class DetailActivity extends ActionBarActivity {
 
             b.setText("UNFAVORITE");
             b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
-
 
             ContentValues values = new ContentValues();
             values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH,DetailFragment.poster);

@@ -51,10 +51,54 @@ public class DetailFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        Intent intent = getActivity().getIntent();
-        getActivity().setTitle("Movie Details");
-
         review = null;
+
+        if (savedInstanceState == null) {
+            Bundle bundle = getArguments();
+
+            if (bundle!=null){
+
+                title = bundle.getString("title");
+                TextView tv = (TextView) rootView.findViewById(R.id.title);
+                tv.setText(title);
+
+                overview = bundle.getString("overview");
+                TextView tv1 = (TextView) rootView.findViewById(R.id.overview);
+                tv1.setText(overview);
+
+                rating = bundle.getString("rating");
+                TextView tv2 = (TextView) rootView.findViewById(R.id.rating);
+                tv2.setText(rating);
+
+                date = bundle.getString("date");
+                TextView tv3 = (TextView) rootView.findViewById(R.id.date);
+                tv3.setText(date);
+
+                poster = bundle.getString("poster");
+                ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
+                Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
+                        MoviesFragment.width, (int)(MoviesFragment.width*1.5)).into(iv);
+
+                youtube1 = bundle.getString("youtube");
+
+                youtube2 = bundle.getString("youtube2");
+
+                b = (Button)rootView.findViewById(R.id.favorite);
+
+                favorite = bundle.getBoolean("favorite", false);
+                if (!favorite) {
+                    b.setText("FAVORITE");
+                    b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    b.setText("UNFAVORITE");
+                    b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
+                }
+
+            }
+        }
+
+        getActivity().setTitle("Movie Details");
+        Intent intent = getActivity().getIntent();
         if(intent !=null && intent.hasExtra("overview"))
         {
             overview = intent.getStringExtra("overview");

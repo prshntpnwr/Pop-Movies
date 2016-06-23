@@ -44,6 +44,7 @@ import java.util.Arrays;
 public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ImageAdapter adapter;
+    LoaderManager.LoaderCallbacks callbacks;
 
     static GridView gridview;
     LinearLayout layout;
@@ -117,6 +118,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         layout = (LinearLayout) rootView.findViewById(R.id.linearlayout);
+        callbacks = this;
 
         //It is a interface that apps use to talk or interact with the window manager
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
@@ -136,7 +138,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
             gridview = (GridView) rootView.findViewById(R.id.gridview_poster);
             int mNumColumns = getContext().getResources().getInteger(R.integer.num_columns);
-
             gridview.setNumColumns(mNumColumns);
             gridview.setAdapter(adapter);
         }
@@ -146,34 +147,79 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                      @Override
                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                         if (!sortByFavorites) {
-                             favorited = bindFavoritesToMovies();
-                             Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                     putExtra("overview", overviews.get(position)).
-                                     putExtra("poster", posters.get(position)).
-                                     putExtra("title", titles.get(position)).
-                                     putExtra("date", dates.get(position)).
-                                     putExtra("rating", ratings.get(position)).
-                                     putExtra("youtube", youtubes1.get(position)).
-                                     putExtra("youtube2", youtubes2.get(position)).
-                                     putExtra("comments", comments.get(position)).
-                                     putExtra("favorite", favorited.get(position));
-                             startActivity(intent);
-                         }
-                         else{
-                             Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                     putExtra("overview", overviewsF.get(position)).
-                                     putExtra("poster", postersF.get(position)).
-                                     putExtra("title", titlesF.get(position)).
-                                     putExtra("date", datesF.get(position)).
-                                     putExtra("rating", ratingsF.get(position)).
-                                     putExtra("youtube", youtubes1F.get(position)).
-                                     putExtra("youtube2", youtubes2F.get(position)).
-                                     putExtra("comments", commentsF.get(position)).
-                                     putExtra("favorite", favorited.get(position));
+                         if (!MainActivity.mTwoPane){
+                             if (!sortByFavorites) {
+                                 favorited = bindFavoritesToMovies();
+                                 Intent intent = new Intent(getActivity(), DetailActivity.class).
+                                         putExtra("overview", overviews.get(position)).
+                                         putExtra("poster", posters.get(position)).
+                                         putExtra("title", titles.get(position)).
+                                         putExtra("date", dates.get(position)).
+                                         putExtra("rating", ratings.get(position)).
+                                         putExtra("youtube", youtubes1.get(position)).
+                                         putExtra("youtube2", youtubes2.get(position)).
+                                         putExtra("comments", comments.get(position)).
+                                         putExtra("favorite", favorited.get(position));
+                                 startActivity(intent);
+                             }
+                             else{
+                                 Intent intent = new Intent(getActivity(), DetailActivity.class).
+                                         putExtra("overview", overviewsF.get(position)).
+                                         putExtra("poster", postersF.get(position)).
+                                         putExtra("title", titlesF.get(position)).
+                                         putExtra("date", datesF.get(position)).
+                                         putExtra("rating", ratingsF.get(position)).
+                                         putExtra("youtube", youtubes1F.get(position)).
+                                         putExtra("youtube2", youtubes2F.get(position)).
+                                         putExtra("comments", commentsF.get(position)).
+                                         putExtra("favorite", favorited.get(position));
 
-                             startActivity(intent);
+                                 startActivity(intent);
+                             }
                          }
+
+                         else {
+                             if (!sortByFavorites) {
+                                 favorited = bindFavoritesToMovies();
+                                 Fragment fragment = new DetailFragment();
+                                 Bundle bundle = new Bundle();
+                                 bundle.putString("overview", overviews.get(position));
+                                 bundle.putString("poster", posters.get(position));
+                                 bundle.putString("title", titles.get(position));
+                                 bundle.putString("date", dates.get(position));
+                                 bundle.putString("rating", ratings.get(position));
+                                 bundle.putString("youtube", youtubes1.get(position));
+                                 bundle.putString("youtube2", youtubes2.get(position));
+                                 //bundle.putStringArrayList("comments", comments.get(position));
+                                 bundle.putBoolean("favorite", favorited.get(position));
+
+                                 fragment.setArguments(bundle);
+                                 getActivity().getSupportFragmentManager().beginTransaction().
+                                         replace(R.id.movie_detail_container, fragment)
+                                         .commit();
+
+                             }
+                             else{
+                                 Fragment fragment = new DetailFragment();
+                                 Bundle bundle = new Bundle();
+                                 bundle.putString("overview", overviewsF.get(position));
+                                 bundle.putString("poster", postersF.get(position));
+                                 bundle.putString("title", titlesF.get(position));
+                                 bundle.putString("date", datesF.get(position));
+                                 bundle.putString("rating", ratingsF.get(position));
+                                 bundle.putString("youtube", youtubes1F.get(position));
+                                 bundle.putString("youtube2", youtubes2F.get(position));
+                                 //bundle.putStringArrayList("comments", commentsF.get(position));
+                                 bundle.putBoolean("favorite", favorited.get(position));
+
+                                 fragment.setArguments(bundle);
+                                 getActivity().getSupportFragmentManager().beginTransaction().
+                                         replace(R.id.movie_detail_container, fragment)
+                                         .commit();
+
+                             }
+                         }
+
                          mPosition = position;
                      }
                  }
@@ -200,7 +246,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
-            onStart();
+            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
+            //onStart();
         }
     }
 

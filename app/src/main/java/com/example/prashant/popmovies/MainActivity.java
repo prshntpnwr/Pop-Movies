@@ -3,6 +3,7 @@ package com.example.prashant.popmovies;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -12,7 +13,7 @@ import com.example.prashant.popmovies.MoviesFragment;
 import com.example.prashant.popmovies.R;
 import com.example.prashant.popmovies.SettingsActivity;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity{
 
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
@@ -64,4 +65,5 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
