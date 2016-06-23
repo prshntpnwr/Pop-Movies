@@ -190,7 +190,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                  bundle.putString("rating", ratings.get(position));
                                  bundle.putString("youtube", youtubes1.get(position));
                                  bundle.putString("youtube2", youtubes2.get(position));
-                                 //bundle.putStringArrayList("comments", comments.get(position));
+                                 bundle.putStringArrayList("comments", comments.get(position));
                                  bundle.putBoolean("favorite", favorited.get(position));
 
                                  fragment.setArguments(bundle);
@@ -209,7 +209,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                  bundle.putString("rating", ratingsF.get(position));
                                  bundle.putString("youtube", youtubes1F.get(position));
                                  bundle.putString("youtube2", youtubes2F.get(position));
-                                 //bundle.putStringArrayList("comments", commentsF.get(position));
+                                 bundle.putStringArrayList("comments", commentsF.get(position));
                                  bundle.putBoolean("favorite", favorited.get(position));
 
                                  fragment.setArguments(bundle);

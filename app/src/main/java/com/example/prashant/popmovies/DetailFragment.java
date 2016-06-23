@@ -1,5 +1,6 @@
 package com.example.prashant.popmovies;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.support.v7.widget.ShareActionProvider;
 import android.widget.TextView;
 
+import com.example.prashant.popmovies.data.MovieContract;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -85,6 +87,37 @@ public class DetailFragment extends Fragment  {
 
                 b = (Button)rootView.findViewById(R.id.favorite);
 
+                comments = bundle.getStringArrayList("comments");
+                for(int i = 0; i < comments.size();i++) {
+                    LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
+                    View divider = new View(getActivity());
+                    TextView tv4 = new TextView(getActivity());
+                    RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    tv4.setLayoutParams(p);
+
+                    int paddingPixel = 10;
+
+                    float density = getActivity().getResources().getDisplayMetrics().density;
+                    int paddingDP = (int) (paddingPixel * density);
+                    tv4.setPadding(0, paddingDP, 0, paddingDP);
+                    RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    x.height = 1;
+                    divider.setLayoutParams(x);
+                    divider.setBackgroundColor(Color.BLACK);
+
+                    tv4.setText(comments.get(i));
+                    layout.addView(divider);
+                    layout.addView(tv4);
+
+                    if (review == null) {
+                        review = comments.get(i);
+                    } else {
+                        review += "divider123" + comments.get(i);
+                    }
+                }
+
+                b = (Button) rootView.findViewById(R.id.favorite);
                 favorite = bundle.getBoolean("favorite", false);
                 if (!favorite) {
                     b.setText("FAVORITE");
@@ -94,6 +127,31 @@ public class DetailFragment extends Fragment  {
                     b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
                 }
 
+                if (b.getText().equals("FAVORITE")){
+
+                    b.setText("UNFAVORITE");
+                    b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
+
+                    ContentValues values = new ContentValues();
+                    values.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH,DetailFragment.poster);
+                    values.put(MovieContract.MovieEntry.COLUMN_OVERVIEW,DetailFragment.overview);
+                    values.put(MovieContract.MovieEntry.COLUMN_RATING,DetailFragment.rating);
+                    values.put(MovieContract.MovieEntry.COLUMN_DATE,DetailFragment.date);
+                    values.put(MovieContract.MovieEntry.COLUMN_REVIEW,DetailFragment.review);
+                    values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE1,DetailFragment.youtube1);
+                    values.put(MovieContract.MovieEntry.COLUMN_YOUTUBE2, DetailFragment.youtube2);
+                    values.put(MovieContract.MovieEntry.COLUMN_TITLE, DetailFragment.title);
+
+                    getContext().getContentResolver().insert(MovieContract.BASE_CONTENT_URI, values);
+
+                }
+
+                else if(b.getText().equals("UNFAVORITE")) {
+                    b.setText("FAVORITE");
+                    b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                    getContext().getContentResolver().delete(MovieContract.BASE_CONTENT_URI,
+                            "title=?", new String[]{DetailFragment.title});
+                }
             }
         }
 
