@@ -40,6 +40,11 @@ public class MainActivity extends ActionBarActivity{
             }
         } else {
             mTwoPane = false;
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_movies, new MoviesFragment())
+                        .commit();
+            }
         }
     }
 

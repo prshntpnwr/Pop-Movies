@@ -58,9 +58,9 @@ public class DetailFragment extends Fragment  {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         review = null;
 
-        rootView.setVisibility(View.INVISIBLE);
-
         if (savedInstanceState == null) {
+            //rootView.setVisibility(View.INVISIBLE);
+
             Bundle bundle = getArguments();
 
             if (bundle != null) {
@@ -219,7 +219,7 @@ public class DetailFragment extends Fragment  {
             ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
 
             Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
-                    MoviesFragment.width, (int)(MoviesFragment.width*1.5)).into(iv);
+                    MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(iv);
 
         }
         if(intent !=null && intent.hasExtra("youtube"))

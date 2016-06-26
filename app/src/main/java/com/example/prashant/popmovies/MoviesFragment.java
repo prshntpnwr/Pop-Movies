@@ -130,7 +130,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         display.getSize(size);
 
         if (MainActivity.mTwoPane) {
-           width = size.x / 6;
+            width = size.x / 6;
         } else width = size.x / 4;
 
         if (getActivity() != null) {
@@ -146,81 +146,81 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         gridview.setOnItemClickListener
                 (new AdapterView.OnItemClickListener() {
 
-                     @Override
-                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                         if (!MainActivity.mTwoPane){
-                             if (!sortByFavorites) {
-                                 favorited = bindFavoritesToMovies();
-                                 Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                         putExtra("overview", overviews.get(position)).
-                                         putExtra("poster", posters.get(position)).
-                                         putExtra("title", titles.get(position)).
-                                         putExtra("date", dates.get(position)).
-                                         putExtra("rating", ratings.get(position)).
-                                         putExtra("youtube", youtubes1.get(position)).
-                                         putExtra("youtube2", youtubes2.get(position)).
-                                         putExtra("comments", comments.get(position)).
-                                         putExtra("favorite", favorited.get(position));
-                                 startActivity(intent);
-                             }
-                             else{
-                                 Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                         putExtra("overview", overviewsF.get(position)).
-                                         putExtra("poster", postersF.get(position)).
-                                         putExtra("title", titlesF.get(position)).
-                                         putExtra("date", datesF.get(position)).
-                                         putExtra("rating", ratingsF.get(position)).
-                                         putExtra("youtube", youtubes1F.get(position)).
-                                         putExtra("youtube2", youtubes2F.get(position)).
-                                         putExtra("comments", commentsF.get(position)).
-                                         putExtra("favorite", favorited.get(position));
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (!MainActivity.mTwoPane){
+                            if (!sortByFavorites) {
+                                favorited = bindFavoritesToMovies();
+                                Intent intent = new Intent(getActivity(), DetailActivity.class).
+                                        putExtra("overview", overviews.get(position)).
+                                        putExtra("poster", posters.get(position)).
+                                        putExtra("title", titles.get(position)).
+                                        putExtra("date", dates.get(position)).
+                                        putExtra("rating", ratings.get(position)).
+                                        putExtra("youtube", youtubes1.get(position)).
+                                        putExtra("youtube2", youtubes2.get(position)).
+                                        putExtra("comments", comments.get(position)).
+                                        putExtra("favorite", favorited.get(position));
+                                startActivity(intent);
+                            }
+                            else{
+                                Intent intent = new Intent(getActivity(), DetailActivity.class).
+                                        putExtra("overview", overviewsF.get(position)).
+                                        putExtra("poster", postersF.get(position)).
+                                        putExtra("title", titlesF.get(position)).
+                                        putExtra("date", datesF.get(position)).
+                                        putExtra("rating", ratingsF.get(position)).
+                                        putExtra("youtube", youtubes1F.get(position)).
+                                        putExtra("youtube2", youtubes2F.get(position)).
+                                        putExtra("comments", commentsF.get(position)).
+                                        putExtra("favorite", favorited.get(position));
 
-                                 startActivity(intent);
-                             }
-                         }
+                                startActivity(intent);
+                            }
+                        }
 
-                         else {
-                             Bundle bundle = new Bundle();
-                             if (!sortByFavorites) {
-                                 favorited = bindFavoritesToMovies();
-                                 //Fragment fragment = new DetailFragment();
-                                 //Bundle bundle = new Bundle();
-                                 bundle.putString("overview", overviews.get(position));
-                                 bundle.putString("poster", posters.get(position));
-                                 bundle.putString("title", titles.get(position));
-                                 bundle.putString("date", dates.get(position));
-                                 bundle.putString("rating", ratings.get(position));
-                                 bundle.putString("youtube", youtubes1.get(position));
-                                 bundle.putString("youtube2", youtubes2.get(position));
-                                 bundle.putStringArrayList("comments", comments.get(position));
-                                 bundle.putBoolean("favorite", favorited.get(position));
-                             }
-                             else{
-                                 //Fragment fragment = new DetailFragment();
-                                 //Bundle bundle = new Bundle();
-                                 bundle.putString("overview", overviewsF.get(position));
-                                 bundle.putString("poster", postersF.get(position));
-                                 bundle.putString("title", titlesF.get(position));
-                                 bundle.putString("date", datesF.get(position));
-                                 bundle.putString("rating", ratingsF.get(position));
-                                 bundle.putString("youtube", youtubes1F.get(position));
-                                 bundle.putString("youtube2", youtubes2F.get(position));
-                                 bundle.putStringArrayList("comments", commentsF.get(position));
-                                 bundle.putBoolean("favorite", favorited.get(position));
-                             }
+                        else {
+                            Bundle bundle = new Bundle();
+                            if (!sortByFavorites) {
+                                favorited = bindFavoritesToMovies();
+                                //Fragment fragment = new DetailFragment();
+                                //Bundle bundle = new Bundle();
+                                bundle.putString("overview", overviews.get(position));
+                                bundle.putString("poster", posters.get(position));
+                                bundle.putString("title", titles.get(position));
+                                bundle.putString("date", dates.get(position));
+                                bundle.putString("rating", ratings.get(position));
+                                bundle.putString("youtube", youtubes1.get(position));
+                                bundle.putString("youtube2", youtubes2.get(position));
+                                bundle.putStringArrayList("comments", comments.get(position));
+                                bundle.putBoolean("favorite", favorited.get(position));
+                            }
+                            else{
+                                //Fragment fragment = new DetailFragment();
+                                //Bundle bundle = new Bundle();
+                                bundle.putString("overview", overviewsF.get(position));
+                                bundle.putString("poster", postersF.get(position));
+                                bundle.putString("title", titlesF.get(position));
+                                bundle.putString("date", datesF.get(position));
+                                bundle.putString("rating", ratingsF.get(position));
+                                bundle.putString("youtube", youtubes1F.get(position));
+                                bundle.putString("youtube2", youtubes2F.get(position));
+                                bundle.putStringArrayList("comments", commentsF.get(position));
+                                bundle.putBoolean("favorite", favorited.get(position));
+                            }
 
-                             Fragment fragment = new DetailFragment();
-                             fragment.setArguments(bundle);
+                            Fragment fragment = new DetailFragment();
+                            fragment.setArguments(bundle);
 
-                             getActivity().getSupportFragmentManager().beginTransaction().
-                                     replace(R.id.movie_detail_container, fragment)
-                                     .commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().
+                                    replace(R.id.movie_detail_container, fragment)
+                                    .commit();
 
-                         }
+                        }
 
-                         mPosition = position;
-                     }
-                 });
+                        mPosition = position;
+                    }
+                });
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
