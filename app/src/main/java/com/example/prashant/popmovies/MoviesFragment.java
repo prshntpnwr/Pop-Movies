@@ -180,11 +180,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                         }
 
                         else {
-                            Bundle bundle = new Bundle();
                             if (!sortByFavorites) {
                                 favorited = bindFavoritesToMovies();
-                                //Fragment fragment = new DetailFragment();
-                                //Bundle bundle = new Bundle();
+                                Bundle bundle = new Bundle();
                                 bundle.putString("overview", overviews.get(position));
                                 bundle.putString("poster", posters.get(position));
                                 bundle.putString("title", titles.get(position));
@@ -194,10 +192,15 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                 bundle.putString("youtube2", youtubes2.get(position));
                                 bundle.putStringArrayList("comments", comments.get(position));
                                 bundle.putBoolean("favorite", favorited.get(position));
+
+                                Fragment fragment = new DetailFragment();
+                                fragment.setArguments(bundle);
+                                getActivity().getSupportFragmentManager().beginTransaction().
+                                        replace(R.id.movie_detail_container, fragment)
+                                        .commit();
                             }
                             else{
-                                //Fragment fragment = new DetailFragment();
-                                //Bundle bundle = new Bundle();
+                                Bundle bundle = new Bundle();
                                 bundle.putString("overview", overviewsF.get(position));
                                 bundle.putString("poster", postersF.get(position));
                                 bundle.putString("title", titlesF.get(position));
@@ -207,15 +210,13 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                 bundle.putString("youtube2", youtubes2F.get(position));
                                 bundle.putStringArrayList("comments", commentsF.get(position));
                                 bundle.putBoolean("favorite", favorited.get(position));
+
+                                Fragment fragment = new DetailFragment();
+                                fragment.setArguments(bundle);
+                                getActivity().getSupportFragmentManager().beginTransaction().
+                                        replace(R.id.movie_detail_container, fragment)
+                                        .commit();
                             }
-
-                            Fragment fragment = new DetailFragment();
-                            fragment.setArguments(bundle);
-
-                            getActivity().getSupportFragmentManager().beginTransaction().
-                                    replace(R.id.movie_detail_container, fragment)
-                                    .commit();
-
                         }
 
                         mPosition = position;
@@ -265,12 +266,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             }
         }
         return result;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
     }
 
     @Override

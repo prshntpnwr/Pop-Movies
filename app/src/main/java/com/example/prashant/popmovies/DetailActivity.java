@@ -5,30 +5,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prashant.popmovies.data.MovieContract;
-import com.example.prashant.popmovies.data.MoviesProvider;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 
 public class DetailActivity extends ActionBarActivity {
 
@@ -36,9 +22,11 @@ public class DetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.movie_detail_container, new DetailFragment())
-                .commit();
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.movie_detail_container, new DetailFragment())
+                    .commit();
+        }
     }
 
     @Override
@@ -107,7 +95,5 @@ public class DetailActivity extends ActionBarActivity {
                 Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube2));
         startActivity(browserIntent);
         Toast.makeText(this, "Launching Trailer", Toast.LENGTH_SHORT).show();
-
     }
-
 }

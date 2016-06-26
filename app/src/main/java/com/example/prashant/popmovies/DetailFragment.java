@@ -59,12 +59,11 @@ public class DetailFragment extends Fragment  {
         review = null;
 
         if (savedInstanceState == null) {
-            //rootView.setVisibility(View.INVISIBLE);
 
             Bundle bundle = getArguments();
-
+            //rootView.setVisibility(View.INVISIBLE);
             if (bundle != null) {
-                rootView.setVisibility(View.VISIBLE);
+                //rootView.setVisibility(View.VISIBLE);
 
                 title = bundle.getString("title");
                 TextView tv = (TextView) rootView.findViewById(R.id.title);
