@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -42,6 +43,8 @@ public class DetailFragment extends Fragment  {
     public static boolean favorite;
     public static ArrayList<String> comments;
     public static Button b;
+    public static Button b1;
+    public static Button b2;
 
     private ShareActionProvider mShareActionProvider;
 
@@ -55,10 +58,13 @@ public class DetailFragment extends Fragment  {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         review = null;
 
+        rootView.setVisibility(View.INVISIBLE);
+
         if (savedInstanceState == null) {
             Bundle bundle = getArguments();
 
             if (bundle != null) {
+                rootView.setVisibility(View.VISIBLE);
 
                 title = bundle.getString("title");
                 TextView tv = (TextView) rootView.findViewById(R.id.title);
@@ -92,7 +98,9 @@ public class DetailFragment extends Fragment  {
                     LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
                     View divider = new View(getActivity());
                     TextView tv4 = new TextView(getActivity());
-                    RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
                     tv4.setLayoutParams(p);
 
                     int paddingPixel = 10;
@@ -100,7 +108,8 @@ public class DetailFragment extends Fragment  {
                     float density = getActivity().getResources().getDisplayMetrics().density;
                     int paddingDP = (int) (paddingPixel * density);
                     tv4.setPadding(0, paddingDP, 0, paddingDP);
-                    RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
                     x.height = 1;
                     divider.setLayoutParams(x);
@@ -155,10 +164,27 @@ public class DetailFragment extends Fragment  {
                         }
                     }
                 });
+
+                b1 = (Button) rootView.findViewById(R.id.trailer1);
+                b1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent browserIntent=new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://youtube.com" + "/watch?v="+youtube1));
+                        startActivity(browserIntent);
+                    }
+                });
+
+                b2 = (Button) rootView.findViewById(R.id.trailer2);
+                b2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent browserIntent=new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://youtube.com" + "/watch?v="+youtube2));
+                        startActivity(browserIntent);
+                    }
+                });
             }
         }
 
-        getActivity().setTitle("Movie Details");
         Intent intent = getActivity().getIntent();
         if(intent !=null && intent.hasExtra("overview"))
         {
@@ -214,7 +240,9 @@ public class DetailFragment extends Fragment  {
                 LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
                 View divider = new View(getActivity());
                 TextView tv = new TextView(getActivity());
-                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
                 tv.setLayoutParams(p);
 
                 int paddingPixel = 10;
@@ -222,7 +250,8 @@ public class DetailFragment extends Fragment  {
                 float density = getActivity().getResources().getDisplayMetrics().density;
                 int paddingDP = (int) (paddingPixel * density);
                 tv.setPadding(0, paddingDP, 0, paddingDP);
-                RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
                 x.height = 1;
                 divider.setLayoutParams(x);
@@ -240,7 +269,6 @@ public class DetailFragment extends Fragment  {
                     review+="divider123" + comments.get(i);
                 }
             }
-
         }
 
         b = (Button)rootView.findViewById(R.id.favorite);
@@ -278,5 +306,4 @@ public class DetailFragment extends Fragment  {
                 "https://www.youtube.com/watch?v=" + youtube1);
         return shareIntent;
     }
-
 }

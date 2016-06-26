@@ -19,11 +19,11 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         // Add 'general' preferences, defined in the XML file
         addPreferencesFromResource(R.xml.pref_general);
 
-        bindPreferenceSummayToValue(findPreference("sortby"));
+        bindPreferenceSummaryToValue(findPreference("sortby"));
     }
 
-    private void bindPreferenceSummayToValue(Preference preference) {
-        // Set the listener to watch for value changes.
+    private void bindPreferenceSummaryToValue(Preference preference) {
+        // Set the listener to watch  for value changes.
         preference.setOnPreferenceChangeListener(this);
 
         // Trigger the listener immediately with the preference's
@@ -37,18 +37,24 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
-        
+
         String stringValue = value.toString();
 
-        if(preference instanceof ListPreference) {
+        if (preference instanceof ListPreference) {
             ListPreference listPreference = (ListPreference) preference;
             int prefIndex = listPreference.findIndexOfValue(stringValue);
-            if(prefIndex >= 0){
+            if (prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             } else {
                 preference.setSummary(stringValue);
             }
         }
         return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public Intent getParentActivityIntent() {
+        return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,9 +22,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.prashant.popmovies.data.MovieContract;
@@ -126,8 +129,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         Point size = new Point();    // Point hold two integer coordinates
         display.getSize(size);
 
-        //to set the poster in gridview
-        // 3 poster in each row if table and 2 for the mobile phone
         if (MainActivity.mTwoPane) {
            width = size.x / 6;
         } else width = size.x / 4;
@@ -179,10 +180,11 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                          }
 
                          else {
+                             Bundle bundle = new Bundle();
                              if (!sortByFavorites) {
                                  favorited = bindFavoritesToMovies();
-                                 Fragment fragment = new DetailFragment();
-                                 Bundle bundle = new Bundle();
+                                 //Fragment fragment = new DetailFragment();
+                                 //Bundle bundle = new Bundle();
                                  bundle.putString("overview", overviews.get(position));
                                  bundle.putString("poster", posters.get(position));
                                  bundle.putString("title", titles.get(position));
@@ -192,16 +194,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                  bundle.putString("youtube2", youtubes2.get(position));
                                  bundle.putStringArrayList("comments", comments.get(position));
                                  bundle.putBoolean("favorite", favorited.get(position));
-
-                                 fragment.setArguments(bundle);
-                                 getActivity().getSupportFragmentManager().beginTransaction().
-                                         replace(R.id.movie_detail_container, fragment)
-                                         .commit();
-
                              }
                              else{
-                                 Fragment fragment = new DetailFragment();
-                                 Bundle bundle = new Bundle();
+                                 //Fragment fragment = new DetailFragment();
+                                 //Bundle bundle = new Bundle();
                                  bundle.putString("overview", overviewsF.get(position));
                                  bundle.putString("poster", postersF.get(position));
                                  bundle.putString("title", titlesF.get(position));
@@ -211,19 +207,20 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                                  bundle.putString("youtube2", youtubes2F.get(position));
                                  bundle.putStringArrayList("comments", commentsF.get(position));
                                  bundle.putBoolean("favorite", favorited.get(position));
-
-                                 fragment.setArguments(bundle);
-                                 getActivity().getSupportFragmentManager().beginTransaction().
-                                         replace(R.id.movie_detail_container, fragment)
-                                         .commit();
-
                              }
+
+                             Fragment fragment = new DetailFragment();
+                             fragment.setArguments(bundle);
+
+                             getActivity().getSupportFragmentManager().beginTransaction().
+                                     replace(R.id.movie_detail_container, fragment)
+                                     .commit();
+
                          }
 
                          mPosition = position;
                      }
-                 }
-                );
+                 });
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)){
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
@@ -246,8 +243,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
-            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
 
+            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
         }
     }
 
@@ -268,6 +265,12 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             }
         }
         return result;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
     }
 
     @Override
@@ -383,6 +386,10 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 gridview.setVisibility(GridView.GONE);
             }
         }
+
+        if (mPosition != GridView.INVALID_POSITION) {
+            gridview.smoothScrollToPosition(mPosition);
+        }
     }
 
     @Override
@@ -422,7 +429,6 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             if (result != null && getActivity() != null) {
                 ImageAdapter adapter = new ImageAdapter(getActivity(), result);
                 gridview.setAdapter(adapter);
-
             }
         }
 
