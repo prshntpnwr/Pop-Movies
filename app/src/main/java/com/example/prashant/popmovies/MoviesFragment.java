@@ -240,15 +240,17 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         super.onSaveInstanceState(outState);
     }
 
-    private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener{
+    private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
             //onStart();
-            getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
+            if (isAdded()) {
+                getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
+            }
         }
-    }
 
+    }
     public ArrayList<Boolean> bindFavoritesToMovies() {
 
         ArrayList<Boolean> result = new ArrayList<>();

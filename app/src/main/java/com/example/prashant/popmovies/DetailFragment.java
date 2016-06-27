@@ -137,7 +137,7 @@ public class DetailFragment extends Fragment  {
                 }
 
                 b.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
+                    public void onClick(View view) {
 
                         if (b.getText().equals("FAVORITE")) {
 
