@@ -58,12 +58,13 @@ public class DetailFragment extends Fragment  {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         review = null;
 
-        if (savedInstanceState == null) {
+        rootView.setVisibility(View.INVISIBLE);
 
+        if (savedInstanceState == null) {
             Bundle bundle = getArguments();
-            //rootView.setVisibility(View.INVISIBLE);
+
             if (bundle != null) {
-                //rootView.setVisibility(View.VISIBLE);
+                rootView.setVisibility(View.VISIBLE);
 
                 title = bundle.getString("title");
                 TextView tv = (TextView) rootView.findViewById(R.id.title);
@@ -167,8 +168,8 @@ public class DetailFragment extends Fragment  {
                 b1 = (Button) rootView.findViewById(R.id.trailer1);
                 b1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent browserIntent=new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://youtube.com" + "/watch?v="+youtube1));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://youtube.com" + "/watch?v=" + youtube1));
                         startActivity(browserIntent);
                     }
                 });
@@ -176,8 +177,8 @@ public class DetailFragment extends Fragment  {
                 b2 = (Button) rootView.findViewById(R.id.trailer2);
                 b2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent browserIntent=new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://youtube.com" + "/watch?v="+youtube2));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://youtube.com" + "/watch?v=" + youtube2));
                         startActivity(browserIntent);
                     }
                 });
@@ -185,100 +186,93 @@ public class DetailFragment extends Fragment  {
         }
 
         Intent intent = getActivity().getIntent();
-        if(intent !=null && intent.hasExtra("overview"))
-        {
-            overview = intent.getStringExtra("overview");
-            TextView tv = (TextView) rootView.findViewById(R.id.overview);
-            tv.setText(overview);
+        if (intent != null) {
 
-        }
-        if(intent !=null && intent.hasExtra("title"))
-        {
-            title = intent.getStringExtra("title");
-            TextView tv = (TextView) rootView.findViewById(R.id.title);
-            tv.setText(title);
+            rootView.setVisibility(View.VISIBLE);
+            if (intent.hasExtra("overview")) {
+                overview = intent.getStringExtra("overview");
+                TextView tv = (TextView) rootView.findViewById(R.id.overview);
+                tv.setText(overview);
 
-        }
-        if(intent !=null && intent.hasExtra("rating"))
-        {
-            rating = intent.getStringExtra("rating");
-            TextView tv = (TextView) rootView.findViewById(R.id.rating);
-            tv.setText(rating);
-        }
-        if(intent !=null && intent.hasExtra("date"))
-        {
-            date = intent.getStringExtra("date");
-            TextView tv = (TextView) rootView.findViewById(R.id.date);
-            tv.setText(date);
+            }
+            if (intent.hasExtra("title")) {
+                title = intent.getStringExtra("title");
+                TextView tv = (TextView) rootView.findViewById(R.id.title);
+                tv.setText(title);
 
-        }
-        if(intent !=null && intent.hasExtra("poster"))
-        {
-            poster = intent.getStringExtra("poster");
-            ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
+            }
+            if (intent.hasExtra("rating")) {
+                rating = intent.getStringExtra("rating");
+                TextView tv = (TextView) rootView.findViewById(R.id.rating);
+                tv.setText(rating);
+            }
+            if (intent.hasExtra("date")) {
+                date = intent.getStringExtra("date");
+                TextView tv = (TextView) rootView.findViewById(R.id.date);
+                tv.setText(date);
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
-                    MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(iv);
+            }
+            if (intent.hasExtra("poster")) {
+                poster = intent.getStringExtra("poster");
+                ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
 
-        }
-        if(intent !=null && intent.hasExtra("youtube"))
-        {
-            youtube1 = intent.getStringExtra("youtube");
+                Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
+                        MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(iv);
 
-        }
-        if(intent !=null && intent.hasExtra("youtube2"))
-        {
-            youtube2 = intent.getStringExtra("youtube2");
+            }
+            if (intent.hasExtra("youtube")) {
+                youtube1 = intent.getStringExtra("youtube");
 
-        }
-        if(intent !=null && intent.hasExtra("comments"))
-        {
-            comments = intent.getStringArrayListExtra("comments");
-            for(int i = 0; i < comments.size();i++)
-            {
-                LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
-                View divider = new View(getActivity());
-                TextView tv = new TextView(getActivity());
-                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                tv.setLayoutParams(p);
+            }
+            if (intent.hasExtra("youtube2")) {
+                youtube2 = intent.getStringExtra("youtube2");
 
-                int paddingPixel = 10;
+            }
+            if (intent.hasExtra("comments")) {
+                comments = intent.getStringArrayListExtra("comments");
+                for (int i = 0; i < comments.size(); i++) {
+                    LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
+                    View divider = new View(getActivity());
+                    TextView tv = new TextView(getActivity());
+                    RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    tv.setLayoutParams(p);
 
-                float density = getActivity().getResources().getDisplayMetrics().density;
-                int paddingDP = (int) (paddingPixel * density);
-                tv.setPadding(0, paddingDP, 0, paddingDP);
-                RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                x.height = 1;
-                divider.setLayoutParams(x);
-                divider.setBackgroundColor(Color.BLACK);
+                    int paddingPixel = 10;
 
-                tv.setText(comments.get(i));
-                layout.addView(divider);
-                layout.addView(tv);
+                    float density = getActivity().getResources().getDisplayMetrics().density;
+                    int paddingDP = (int) (paddingPixel * density);
+                    tv.setPadding(0, paddingDP, 0, paddingDP);
+                    RelativeLayout.LayoutParams x = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    x.height = 1;
+                    divider.setLayoutParams(x);
+                    divider.setBackgroundColor(Color.BLACK);
 
-                if(review == null)
-                {
-                    review = comments.get(i);
-                }
-                else{
-                    review+="divider123" + comments.get(i);
+                    tv.setText(comments.get(i));
+                    layout.addView(divider);
+                    layout.addView(tv);
+
+                    if (review == null) {
+                        review = comments.get(i);
+                    } else {
+                        review += "divider123" + comments.get(i);
+                    }
                 }
             }
-        }
 
-        b = (Button)rootView.findViewById(R.id.favorite);
-        if(intent !=null && intent.hasExtra("favorite")) {
-            favorite = intent.getBooleanExtra("favorite", false);
-            if (!favorite) {
-                b.setText("FAVORITE");
-                b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            } else {
-                b.setText("UNFAVORITE");
-                b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
+            b = (Button) rootView.findViewById(R.id.favorite);
+            if (intent.hasExtra("favorite")) {
+                favorite = intent.getBooleanExtra("favorite", false);
+                if (!favorite) {
+                    b.setText("FAVORITE");
+                    b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    b.setText("UNFAVORITE");
+                    b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
+                }
             }
         }
         return rootView;

@@ -42,7 +42,6 @@ public class DetailActivity extends ActionBarActivity {
         // as specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //no inspection Simplifiable If Statement
         if(id == R.id.action_settings){
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
@@ -82,7 +81,6 @@ public class DetailActivity extends ActionBarActivity {
 
     public void trailer1(View v)
     {
-        //launch activity with first youtube video
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube1));
         startActivity(browserIntent);
@@ -90,7 +88,6 @@ public class DetailActivity extends ActionBarActivity {
     }
     public void trailer2(View v)
     {
-        //launch activity with second youtube video
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.youtube.com/watch?v=" + DetailFragment.youtube2));
         startActivity(browserIntent);

@@ -244,7 +244,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
-
+            //onStart();
             getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
         }
     }
