@@ -61,7 +61,7 @@ public class DetailFragment extends Fragment  {
         rootView.setVisibility(View.INVISIBLE);
 
         if (savedInstanceState == null) {
-            Bundle bundle = getArguments();
+            final Bundle bundle = getArguments();
 
             if (bundle != null) {
                 rootView.setVisibility(View.VISIBLE);
@@ -161,13 +161,14 @@ public class DetailFragment extends Fragment  {
                             b.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                             getContext().getContentResolver().delete(MovieContract.BASE_CONTENT_URI,
                                     "title=?", new String[]{DetailFragment.title});
+                            bundle.clear();
                         }
                     }
                 });
 
                 b1 = (Button) rootView.findViewById(R.id.trailer1);
                 b1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
+                    public void onClick(View view) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("http://youtube.com" + "/watch?v=" + youtube1));
                         startActivity(browserIntent);
@@ -176,7 +177,7 @@ public class DetailFragment extends Fragment  {
 
                 b2 = (Button) rootView.findViewById(R.id.trailer2);
                 b2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
+                    public void onClick(View view) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("http://youtube.com" + "/watch?v=" + youtube2));
                         startActivity(browserIntent);
@@ -188,31 +189,36 @@ public class DetailFragment extends Fragment  {
         Intent intent = getActivity().getIntent();
         if (intent != null) {
 
-            rootView.setVisibility(View.VISIBLE);
+            //rootView.setVisibility(View.VISIBLE);
             if (intent.hasExtra("overview")) {
+                rootView.setVisibility(View.VISIBLE);
                 overview = intent.getStringExtra("overview");
                 TextView tv = (TextView) rootView.findViewById(R.id.overview);
                 tv.setText(overview);
 
             }
             if (intent.hasExtra("title")) {
+                rootView.setVisibility(View.VISIBLE);
                 title = intent.getStringExtra("title");
                 TextView tv = (TextView) rootView.findViewById(R.id.title);
                 tv.setText(title);
 
             }
             if (intent.hasExtra("rating")) {
+                rootView.setVisibility(View.VISIBLE);
                 rating = intent.getStringExtra("rating");
                 TextView tv = (TextView) rootView.findViewById(R.id.rating);
                 tv.setText(rating);
             }
             if (intent.hasExtra("date")) {
+                rootView.setVisibility(View.VISIBLE);
                 date = intent.getStringExtra("date");
                 TextView tv = (TextView) rootView.findViewById(R.id.date);
                 tv.setText(date);
 
             }
             if (intent.hasExtra("poster")) {
+                rootView.setVisibility(View.VISIBLE);
                 poster = intent.getStringExtra("poster");
                 ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
 
@@ -221,14 +227,17 @@ public class DetailFragment extends Fragment  {
 
             }
             if (intent.hasExtra("youtube")) {
+                rootView.setVisibility(View.VISIBLE);
                 youtube1 = intent.getStringExtra("youtube");
 
             }
             if (intent.hasExtra("youtube2")) {
+                rootView.setVisibility(View.VISIBLE);
                 youtube2 = intent.getStringExtra("youtube2");
 
             }
             if (intent.hasExtra("comments")) {
+                rootView.setVisibility(View.VISIBLE);
                 comments = intent.getStringArrayListExtra("comments");
                 for (int i = 0; i < comments.size(); i++) {
                     LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linear);
@@ -265,6 +274,7 @@ public class DetailFragment extends Fragment  {
 
             b = (Button) rootView.findViewById(R.id.favorite);
             if (intent.hasExtra("favorite")) {
+                rootView.setVisibility(View.VISIBLE);
                 favorite = intent.getBooleanExtra("favorite", false);
                 if (!favorite) {
                     b.setText("FAVORITE");

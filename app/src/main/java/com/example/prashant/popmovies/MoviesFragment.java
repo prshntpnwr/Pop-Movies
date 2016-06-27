@@ -385,6 +385,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         if (mPosition != GridView.INVALID_POSITION) {
             gridview.smoothScrollToPosition(mPosition);
         }
+
     }
 
     @Override
