@@ -362,6 +362,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 gridview.setAdapter(adapter);
             }
         }
+
         else {
             gridview.setVisibility(GridView.VISIBLE);
             layout.removeView(textView);
