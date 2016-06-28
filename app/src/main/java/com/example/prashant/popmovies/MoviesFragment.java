@@ -28,13 +28,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.prashant.popmovies.data.MovieContract;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,6 +59,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     static PreferenceChangeListener listener;
     static SharedPreferences prefs;
     static boolean sortByFavorites;
+
     static ArrayList<String> postersF;
     static ArrayList<String> titlesF;
     static ArrayList<String> datesF;
@@ -244,13 +242,12 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             gridview.setAdapter(null);
-            //onStart();
             if (isAdded()) {
                 getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, callbacks);
             }
         }
-
     }
+
     public ArrayList<Boolean> bindFavoritesToMovies() {
 
         ArrayList<Boolean> result = new ArrayList<>();
@@ -310,6 +307,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         if (cursor == null) return;
 
+        clearArrayLists();
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
             postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
@@ -387,11 +385,22 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         if (mPosition != GridView.INVALID_POSITION) {
             gridview.smoothScrollToPosition(mPosition);
         }
-
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
+    public void clearArrayLists() {
+        postersF.clear();
+        commentsF.clear();
+        titlesF.clear();
+        overviewsF.clear();
+        youtubes1F.clear();
+        youtubes2F.clear();
+        datesF.clear();
+        ratingsF.clear();
+        favorited.clear();
     }
 
     public boolean isNetworkAvailable() {
