@@ -27,6 +27,7 @@ public class DetailActivity extends ActionBarActivity {
                     .replace(R.id.movie_detail_container, new DetailFragment())
                     .commit();
         }
+        getSupportActionBar().setElevation(0f);
     }
 
     @Override

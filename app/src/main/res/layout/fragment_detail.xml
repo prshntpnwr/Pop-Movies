@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.prashant.popmovies.DetailFragment"
-    >
+    tools:context="com.example.prashant.popmovies.DetailFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -16,15 +16,16 @@
                 android:layout_height="150dp"
                 android:paddingLeft = "20dp"
                 android:id ="@+id/title"
-                android:background = "#415ebb"
+                android:background = "#ff1ca8f4"
                 android:textSize= "35sp"
                 android:gravity = "center_vertical"
                 android:textColor="#ffffffff"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight = "true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                />
+                android:layout_alignParentStart="true" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
                 android:layout_alignParentLeft="true"
                 android:id = "@+id/poster"
                 android:contentDescription="@null" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,8 +48,8 @@
                 android:id ="@+id/date"
                 android:layout_below = "@+id/title"
                 android:layout_toRightOf="@+id/poster"
-                android:textSize= "25sp"
-                />
+                android:textAppearance="?android:textAppearanceLarge" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,10 +58,12 @@
                 android:paddingTop = "0dp"
                 android:paddingBottom = "5dp"
                 android:id ="@+id/rating"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_below = "@+id/date"
                 android:layout_toRightOf="@+id/poster"
                 android:textStyle="bold"
-                />
+                android:textAppearance="?android:textAppearanceSmall" />
 
             <Button
                 android:layout_width="150dp"
@@ -73,7 +77,7 @@
                 android:gravity = "center"
                 android:onClick = "favorite"
                 android:layout_marginEnd="50dp"
-
+                android:layout_marginBottom="5dp"
                 android:layout_toRightOf="@+id/poster"
                 android:layout_below="@+id/rating"
                 android:layout_alignParentEnd="true" />
@@ -85,16 +89,18 @@
                 android:paddingRight = "15dp"
                 android:paddingTop = "0dp"
                 android:paddingBottom = "15dp"
+                android:layout_marginBottom="5dp"
                 android:id ="@+id/overview"
                 android:layout_below = "@+id/poster"
-                />
-
+                android:textSize="15dp" />
 
             <LinearLayout android:layout_width = "fill_parent"
                 android:layout_height="wrap_content"
                 android:id = "@+id/linear"
                 android:paddingLeft= "15dp"
                 android:paddingRight = "15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_below = "@+id/overview"
                 android:orientation = "vertical">
 
@@ -108,16 +114,18 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/trailer"
                     android:text="@string/Trailers"
-                    android:textSize="25sp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="0dp"
                     android:paddingTop="5dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="5dp"/>
+                    android:paddingBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text = "@string/Trailer1"
+                    android:textColor="@color/light_grey"
                     android:paddingLeft = "25dp"
                     android:paddingRight = "0dp"
                     android:paddingTop = "0dp"
@@ -126,30 +134,29 @@
                     android:gravity = "center_vertical"
                     android:onClick = "trailer1"
                     android:visibility="visible"
-                    android:background="@android:color/transparent" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.2dp"
-                    android:background = "@android:color/darker_gray"/>
+                    android:background="?attr/selectableItemBackground"/>
 
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text = "@string/Trailer2"
+                    android:textColor="@color/light_grey"
                     android:paddingLeft = "25dp"
                     android:paddingRight = "0dp"
                     android:paddingTop = "0dp"
                     android:paddingBottom = "0dp"
+                    android:layout_marginBottom="5dp"
                     android:id = "@+id/trailer2"
                     android:gravity = "center_vertical"
                     android:onClick = "trailer2"
                     android:visibility="visible"
-                    android:background="@android:color/transparent"/>
+                    android:background="?attr/selectableItemBackground"/>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:background = "@android:color/black"/>
+
                 <TextView
                     android:text = "@string/Reviews"
                     android:textSize="20sp"
@@ -159,18 +166,15 @@
                     android:paddingRight = "0dp"
                     android:paddingTop = "15dp"
                     android:paddingBottom = "15dp"
-                    android:id ="@+id/reviews"/>
-
-
+                    android:layout_marginTop="5dp"
+                    android:id ="@+id/reviews"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
             </LinearLayout>
 
-
         </RelativeLayout>
 
-
     </ScrollView>
-
 
 </RelativeLayout>
 

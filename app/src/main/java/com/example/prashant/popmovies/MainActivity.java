@@ -33,6 +33,7 @@ public class MainActivity extends ActionBarActivity{
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
+            getSupportActionBar().setElevation(0f);
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.movie_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
@@ -45,6 +46,7 @@ public class MainActivity extends ActionBarActivity{
                         .replace(R.id.fragment_movies, new MoviesFragment())
                         .commit();
             }
+            //getSupportActionBar().setElevation(0f);
         }
     }
 

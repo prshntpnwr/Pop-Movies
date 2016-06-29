@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,11 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.prashant.popmovies.data.MovieContract;
 import org.json.JSONArray;
@@ -54,31 +50,11 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
     static int width;
     static boolean sortByPop = true;
-    static String api_key = "b7f57ee32644eb6ddfdca9ca38b5513e";
 
     static PreferenceChangeListener listener;
     static SharedPreferences prefs;
     static boolean sortByFavorites;
 
-    static ArrayList<String> postersF;
-    static ArrayList<String> titlesF;
-    static ArrayList<String> datesF;
-    static ArrayList<String> ratingsF;
-    static ArrayList<String> youtubes1F;
-    static ArrayList<String> youtubes2F;
-    static ArrayList<ArrayList<String>> commentsF;
-    static ArrayList<String> overviewsF;
-
-    static ArrayList<String> overviews;
-    static ArrayList<String> titles;
-    static ArrayList<String> dates;
-    static ArrayList<String> ratings;
-    static ArrayList<String> youtubes1;
-    static ArrayList<String> youtubes2;
-    static ArrayList<String> ids;
-    static ArrayList<String> posters;
-    static ArrayList<Boolean> favorited;
-    static ArrayList<ArrayList<String>> comments;
 
     private static final int MOVIE_LOADER_ID = 0;
 
@@ -148,30 +124,30 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         if (!MainActivity.mTwoPane){
                             if (!sortByFavorites) {
-                                favorited = bindFavoritesToMovies();
+                                MoviesItem.favorited = bindFavoritesToMovies();
                                 Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                        putExtra("overview", overviews.get(position)).
-                                        putExtra("poster", posters.get(position)).
-                                        putExtra("title", titles.get(position)).
-                                        putExtra("date", dates.get(position)).
-                                        putExtra("rating", ratings.get(position)).
-                                        putExtra("youtube", youtubes1.get(position)).
-                                        putExtra("youtube2", youtubes2.get(position)).
-                                        putExtra("comments", comments.get(position)).
-                                        putExtra("favorite", favorited.get(position));
+                                        putExtra("overview", MoviesItem.overviews.get(position)).
+                                        putExtra("poster", MoviesItem.posters.get(position)).
+                                        putExtra("title", MoviesItem.titles.get(position)).
+                                        putExtra("date", MoviesItem.dates.get(position)).
+                                        putExtra("rating", MoviesItem.ratings.get(position)).
+                                        putExtra("youtube", MoviesItem.youtubes1.get(position)).
+                                        putExtra("youtube2", MoviesItem.youtubes2.get(position)).
+                                        putExtra("comments", MoviesItem.comments.get(position)).
+                                        putExtra("favorite", MoviesItem.favorited.get(position));
                                 startActivity(intent);
                             }
                             else{
                                 Intent intent = new Intent(getActivity(), DetailActivity.class).
-                                        putExtra("overview", overviewsF.get(position)).
-                                        putExtra("poster", postersF.get(position)).
-                                        putExtra("title", titlesF.get(position)).
-                                        putExtra("date", datesF.get(position)).
-                                        putExtra("rating", ratingsF.get(position)).
-                                        putExtra("youtube", youtubes1F.get(position)).
-                                        putExtra("youtube2", youtubes2F.get(position)).
-                                        putExtra("comments", commentsF.get(position)).
-                                        putExtra("favorite", favorited.get(position));
+                                        putExtra("overview", MoviesItem.overviewsF.get(position)).
+                                        putExtra("poster", MoviesItem.postersF.get(position)).
+                                        putExtra("title", MoviesItem.titlesF.get(position)).
+                                        putExtra("date", MoviesItem.datesF.get(position)).
+                                        putExtra("rating", MoviesItem.ratingsF.get(position)).
+                                        putExtra("youtube", MoviesItem.youtubes1F.get(position)).
+                                        putExtra("youtube2", MoviesItem.youtubes2F.get(position)).
+                                        putExtra("comments", MoviesItem.commentsF.get(position)).
+                                        putExtra("favorite", MoviesItem.favorited.get(position));
 
                                 startActivity(intent);
                             }
@@ -179,17 +155,17 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                         else {
                             if (!sortByFavorites) {
-                                favorited = bindFavoritesToMovies();
+                                MoviesItem.favorited = bindFavoritesToMovies();
                                 Bundle bundle = new Bundle();
-                                bundle.putString("overview", overviews.get(position));
-                                bundle.putString("poster", posters.get(position));
-                                bundle.putString("title", titles.get(position));
-                                bundle.putString("date", dates.get(position));
-                                bundle.putString("rating", ratings.get(position));
-                                bundle.putString("youtube", youtubes1.get(position));
-                                bundle.putString("youtube2", youtubes2.get(position));
-                                bundle.putStringArrayList("comments", comments.get(position));
-                                bundle.putBoolean("favorite", favorited.get(position));
+                                bundle.putString("overview", MoviesItem.overviews.get(position));
+                                bundle.putString("poster", MoviesItem.posters.get(position));
+                                bundle.putString("title", MoviesItem.titles.get(position));
+                                bundle.putString("date", MoviesItem.dates.get(position));
+                                bundle.putString("rating", MoviesItem.ratings.get(position));
+                                bundle.putString("youtube", MoviesItem.youtubes1.get(position));
+                                bundle.putString("youtube2", MoviesItem.youtubes2.get(position));
+                                bundle.putStringArrayList("comments", MoviesItem.comments.get(position));
+                                bundle.putBoolean("favorite", MoviesItem.favorited.get(position));
 
                                 Fragment fragment = new DetailFragment();
                                 fragment.setArguments(bundle);
@@ -199,15 +175,15 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                             }
                             else{
                                 Bundle bundle = new Bundle();
-                                bundle.putString("overview", overviewsF.get(position));
-                                bundle.putString("poster", postersF.get(position));
-                                bundle.putString("title", titlesF.get(position));
-                                bundle.putString("date", datesF.get(position));
-                                bundle.putString("rating", ratingsF.get(position));
-                                bundle.putString("youtube", youtubes1F.get(position));
-                                bundle.putString("youtube2", youtubes2F.get(position));
-                                bundle.putStringArrayList("comments", commentsF.get(position));
-                                bundle.putBoolean("favorite", favorited.get(position));
+                                bundle.putString("overview", MoviesItem.overviewsF.get(position));
+                                bundle.putString("poster", MoviesItem.postersF.get(position));
+                                bundle.putString("title", MoviesItem.titlesF.get(position));
+                                bundle.putString("date", MoviesItem.datesF.get(position));
+                                bundle.putString("rating", MoviesItem.ratingsF.get(position));
+                                bundle.putString("youtube", MoviesItem.youtubes1F.get(position));
+                                bundle.putString("youtube2", MoviesItem.youtubes2F.get(position));
+                                bundle.putStringArrayList("comments", MoviesItem.commentsF.get(position));
+                                bundle.putBoolean("favorite", MoviesItem.favorited.get(position));
 
                                 Fragment fragment = new DetailFragment();
                                 fragment.setArguments(bundle);
@@ -251,14 +227,14 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     public ArrayList<Boolean> bindFavoritesToMovies() {
 
         ArrayList<Boolean> result = new ArrayList<>();
-        for(int i = 0; i < titles.size(); i++) {
+        for(int i = 0; i < MoviesItem.titles.size(); i++) {
             result.add(false);
         }
-        for(String favoritedTitles: titlesF) {
+        for(String favoritedTitles: MoviesItem.titlesF) {
 
-            for(int x = 0; x < titles.size(); x++)
+            for(int x = 0; x < MoviesItem.titles.size(); x++)
             {
-                if(favoritedTitles.equals(titles.get(x)))
+                if(favoritedTitles.equals(MoviesItem.titles.get(x)))
                 {
                     result.set(x,true);
                 }
@@ -271,15 +247,15 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     public void onStart() {
         super.onStart();
 
-        postersF = new ArrayList<String>();
-        titlesF = new ArrayList<String>();
-        datesF = new ArrayList<String>();
-        overviewsF = new ArrayList<String>();
-        favorited = new ArrayList<Boolean>();
-        commentsF = new ArrayList<ArrayList<String>>();
-        youtubes1F = new ArrayList<String>();
-        youtubes2F = new ArrayList<String>();
-        ratingsF = new ArrayList<String>();
+        MoviesItem.postersF = new ArrayList<String>();
+        MoviesItem.titlesF = new ArrayList<String>();
+        MoviesItem.datesF = new ArrayList<String>();
+        MoviesItem.overviewsF = new ArrayList<String>();
+        MoviesItem.favorited = new ArrayList<Boolean>();
+        MoviesItem.commentsF = new ArrayList<ArrayList<String>>();
+        MoviesItem.youtubes1F = new ArrayList<String>();
+        MoviesItem.youtubes2F = new ArrayList<String>();
+        MoviesItem.ratingsF = new ArrayList<String>();
 
         getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
     }
@@ -310,15 +286,15 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         clearArrayLists();
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
-            postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
-            commentsF.add(convertStringToArrayList(cursor.getString(COL_MOVIE_REVIEW)));
-            titlesF.add(cursor.getString(COL_MOVIE_TITLE));
-            overviewsF.add(cursor.getString(COL_MOVIE_OVERVIEW));
-            youtubes1F.add(cursor.getString(COL_MOVIE_YOUTUBE1));
-            youtubes2F.add(cursor.getString(COL_MOVIE_YOUTUBE2));
-            datesF.add(cursor.getString(COL_MOVIE_DATE));
-            ratingsF.add(cursor.getString(COL_MOVIE_RATING));
-            favorited.add(true);
+            MoviesItem.postersF.add(cursor.getString(COL_MOVIE_POSTER_PATH));
+            MoviesItem.commentsF.add(convertStringToArrayList(cursor.getString(COL_MOVIE_REVIEW)));
+            MoviesItem.titlesF.add(cursor.getString(COL_MOVIE_TITLE));
+            MoviesItem.overviewsF.add(cursor.getString(COL_MOVIE_OVERVIEW));
+            MoviesItem.youtubes1F.add(cursor.getString(COL_MOVIE_YOUTUBE1));
+            MoviesItem.youtubes2F.add(cursor.getString(COL_MOVIE_YOUTUBE2));
+            MoviesItem.datesF.add(cursor.getString(COL_MOVIE_DATE));
+            MoviesItem.ratingsF.add(cursor.getString(COL_MOVIE_RATING));
+            MoviesItem.favorited.add(true);
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -347,7 +323,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
         TextView textView = new TextView(getActivity());
 
         if(sortByFavorites) {
-            if (postersF.size() == 0) {
+            if (MoviesItem.postersF.size() == 0) {
                 textView.setText("You have no favorites movies.");
                 if (layout.getChildCount() == 1)
                     layout.addView(textView);
@@ -357,8 +333,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 layout.removeView(textView);
             }
 
-            if (postersF != null && getActivity() != null) {
-                ImageAdapter adapter = new ImageAdapter(getActivity(), postersF);
+            if (MoviesItem.postersF != null && getActivity() != null) {
+                ImageAdapter adapter = new ImageAdapter(getActivity(), MoviesItem.postersF);
                 gridview.setAdapter(adapter);
             }
         }
@@ -393,15 +369,15 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     public void clearArrayLists() {
-        postersF.clear();
-        commentsF.clear();
-        titlesF.clear();
-        overviewsF.clear();
-        youtubes1F.clear();
-        youtubes2F.clear();
-        datesF.clear();
-        ratingsF.clear();
-        favorited.clear();
+        MoviesItem.postersF.clear();
+        MoviesItem.commentsF.clear();
+        MoviesItem.titlesF.clear();
+        MoviesItem.overviewsF.clear();
+        MoviesItem.youtubes1F.clear();
+        MoviesItem.youtubes2F.clear();
+        MoviesItem.datesF.clear();
+        MoviesItem.ratingsF.clear();
+        MoviesItem.favorited.clear();
     }
 
     public boolean isNetworkAvailable() {
@@ -424,8 +400,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             while (true) {
                 try {
                     //storing posters into an arraylist poster
-                    posters = new ArrayList(Arrays.asList(getPathsFromAPI(sortByPop)));
-                    return posters;
+                    MoviesItem.posters = new ArrayList(Arrays.asList(getPathsFromAPI(sortByPop)));
+                    return MoviesItem.posters;
                 } catch (Exception e) {
                     continue;
                 }
@@ -434,7 +410,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
-            if (result != null && getActivity() != null) {
+            if (result != null && getActivity() != null && !sortByFavorites) {
                 ImageAdapter adapter = new ImageAdapter(getActivity(), result);
                 gridview.setAdapter(adapter);
             }
@@ -451,9 +427,9 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 try {
                     String urlString = null;
                     if (sortbypop) {
-                        urlString = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + api_key;
+                        urlString = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + MoviesItem.api_key;
                     } else {
-                        urlString = "http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&vote_count.gte=500&api_key=" + api_key;
+                        urlString = "http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&vote_count.gte=500&api_key=" + MoviesItem.api_key;
                     }
                     URL url = new URL(urlString);
                     urlConnection = (HttpURLConnection) url.openConnection();
@@ -477,36 +453,36 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                     JSONResult = buffer.toString();
 
                     try {
-                        overviews = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"overview")));
-                        titles = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"original_title")));
-                        ratings = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"vote_average")));
-                        dates = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"release_date")));
-                        ids = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"id")));
+                        MoviesItem.overviews = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"overview")));
+                        MoviesItem.titles = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"original_title")));
+                        MoviesItem.ratings = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"vote_average")));
+                        MoviesItem.dates = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"release_date")));
+                        MoviesItem.ids = new ArrayList<String>(Arrays.asList(getStringsFromJSON(JSONResult,"id")));
                         while(true)
                         {
-                            youtubes1 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,0)));
-                            youtubes2 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(ids,1)));
+                            MoviesItem.youtubes1 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(MoviesItem.ids,0)));
+                            MoviesItem.youtubes2 = new ArrayList<String>(Arrays.asList(getYoutubesFromIds(MoviesItem.ids,1)));
                             int nullCount = 0;
-                            for(int i = 0; i< youtubes1.size(); i++)
+                            for(int i = 0; i< MoviesItem.youtubes1.size(); i++)
                             {
-                                if(youtubes1.get(i) == null)
+                                if(MoviesItem.youtubes1.get(i) == null)
                                 {
                                     nullCount++;
-                                    youtubes1.set(i, "no video found");
+                                    MoviesItem.youtubes1.set(i, "no video found");
                                 }
                             }
-                            for(int i = 0; i < youtubes2.size(); i++)
+                            for(int i = 0; i < MoviesItem.youtubes2.size(); i++)
                             {
-                                if(youtubes2.get(i) == null)
+                                if(MoviesItem.youtubes2.get(i) == null)
                                 {
                                     nullCount++;
-                                    youtubes2.set(i, "no video found");
+                                    MoviesItem.youtubes2.set(i, "no video found");
                                 }
                             }
                             if(nullCount > 2) continue;
                             break;
                         }
-                        comments = getReviewsFromIds(ids);
+                        MoviesItem.comments = getReviewsFromIds(MoviesItem.ids);
                         return getPathsFromJSON(JSONResult);
 
                     } catch (JSONException e) {
@@ -524,8 +500,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                     {
                         try{
                             reader.close();
-                        }catch(final IOException e)
-                        {
+                        }catch(final IOException e){
                         }
                     }
                 }
@@ -543,7 +518,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                 try {
                     String urlString = null;
-                    urlString = "http://api.themoviedb.org/3/movie/" + ids.get(i) + "/videos?api_key=" + api_key;
+                    urlString = "http://api.themoviedb.org/3/movie/" + ids.get(i) + "/videos?api_key=" + MoviesItem.api_key;
 
                     URL url = new URL(urlString);
                     urlConnection = (HttpURLConnection) url.openConnection();
@@ -601,7 +576,8 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                     try {
                         String urlString = null;
-                        urlString = "http://api.themoviedb.org/3/movie/" + ids.get(i) + "/reviews?api_key=" + api_key;
+                        urlString = "http://api.themoviedb.org/3/movie/" + ids.get(i) + "/reviews?api_key=" + MoviesItem
+                                .api_key;
                         URL url = new URL(urlString);
                         urlConnection = (HttpURLConnection) url.openConnection();
                         urlConnection.setRequestMethod("GET");

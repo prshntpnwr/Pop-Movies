@@ -83,9 +83,9 @@ public class DetailFragment extends Fragment  {
                 tv3.setText(date);
 
                 poster = bundle.getString("poster");
-                ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
+                ImageView imageView = (ImageView) rootView.findViewById(R.id.poster);
                 Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
-                        MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(iv);
+                        MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(imageView);
 
                 youtube1 = bundle.getString("youtube");
 
@@ -220,10 +220,10 @@ public class DetailFragment extends Fragment  {
             if (intent.hasExtra("poster")) {
                 rootView.setVisibility(View.VISIBLE);
                 poster = intent.getStringExtra("poster");
-                ImageView iv = (ImageView) rootView.findViewById(R.id.poster);
+                ImageView imageView = (ImageView) rootView.findViewById(R.id.poster);
 
                 Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
-                        MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(iv);
+                        MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(imageView);
 
             }
             if (intent.hasExtra("youtube")) {
