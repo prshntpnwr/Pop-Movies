@@ -221,7 +221,6 @@ public class DetailFragment extends Fragment  {
                 rootView.setVisibility(View.VISIBLE);
                 poster = intent.getStringExtra("poster");
                 ImageView imageView = (ImageView) rootView.findViewById(R.id.poster);
-
                 Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + poster).resize(
                         MoviesFragment.width, (int) (MoviesFragment.width * 1.5)).into(imageView);
 

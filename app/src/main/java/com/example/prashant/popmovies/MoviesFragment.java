@@ -576,8 +576,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
 
                     try {
                         String urlString = null;
-                        urlString = "http://api.themoviedb.org/3/movie/" + ids.get(i) + "/reviews?api_key=" + MoviesItem
-                                .api_key;
+                        urlString = "http://api.themoviedb.org/3/movie/" + ids.get(i) + "/reviews?api_key=" + MoviesItem.api_key;
                         URL url = new URL(urlString);
                         urlConnection = (HttpURLConnection) url.openConnection();
                         urlConnection.setRequestMethod("GET");
@@ -677,7 +676,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
                 if(param.equals("vote_average"))
                 {
                     Double number = movie.getDouble("vote_average");
-                    String rating =Double.toString(number)+"/10";
+                    String rating = Double.toString(number)+"/10";
                     result[i]=rating;
                 }
                 else {
@@ -695,7 +694,7 @@ public  class MoviesFragment extends Fragment implements LoaderManager.LoaderCal
             JSONArray moviesArray = JSONString.getJSONArray("results");
             String[] result = new String[moviesArray.length()];
 
-            for(int i = 0; i<moviesArray.length();i++)
+            for(int i = 0; i < moviesArray.length();i++)
             {
                 JSONObject movie = moviesArray.getJSONObject(i);
                 String moviePath = movie.getString("poster_path");

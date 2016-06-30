@@ -26,61 +26,80 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:paddingRight = "15dp"
-                android:paddingTop="15dp"
-                android:paddingBottom = "15dp"
-                android:layout_below = "@+id/title"
-                android:layout_alignParentLeft="true"
-                android:id = "@+id/poster"
-                android:contentDescription="@null" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/twolayout"
+                android:layout_below="@+id/title">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft = "5dp"
-                android:paddingRight = "0dp"
-                android:paddingTop = "15dp"
-                android:paddingBottom = "0dp"
-                android:id ="@+id/date"
-                android:layout_below = "@+id/title"
-                android:layout_toRightOf="@+id/poster"
-                android:textAppearance="?android:textAppearanceLarge" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:id = "@+id/poster"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@null" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft = "5dp"
-                android:paddingRight = "0dp"
-                android:paddingTop = "0dp"
-                android:paddingBottom = "5dp"
-                android:id ="@+id/rating"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_below = "@+id/date"
-                android:layout_toRightOf="@+id/poster"
-                android:textStyle="bold"
-                android:textAppearance="?android:textAppearanceSmall" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text = "@string/favorite"
-                android:paddingLeft = "0dp"
-                android:paddingRight = "0dp"
-                android:paddingTop = "0dp"
-                android:paddingBottom = "0dp"
-                android:id = "@+id/favorite"
-                android:gravity = "center"
-                android:onClick = "favorite"
-                android:layout_marginEnd="50dp"
-                android:layout_marginBottom="5dp"
-                android:layout_toRightOf="@+id/poster"
-                android:layout_below="@+id/rating"
-                android:layout_alignParentEnd="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft = "5dp"
+                        android:paddingRight = "0dp"
+                        android:paddingTop = "15dp"
+                        android:paddingBottom = "0dp"
+                        android:id ="@+id/date"
+                        android:layout_below = "@+id/title"
+                        android:layout_toRightOf="@+id/poster"
+                        android:textAppearance="?android:textAppearanceLarge" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft = "5dp"
+                        android:paddingRight = "0dp"
+                        android:paddingTop = "0dp"
+                        android:paddingBottom = "5dp"
+                        android:id ="@+id/rating"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_below = "@+id/date"
+                        android:layout_toRightOf="@+id/poster"
+                        android:textStyle="bold"
+                        android:textAppearance="?android:textAppearanceSmall" />
+
+                    <Button
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:text = "@string/favorite"
+                        android:paddingLeft = "0dp"
+                        android:paddingRight = "0dp"
+                        android:paddingTop = "0dp"
+                        android:paddingBottom = "0dp"
+                        android:id = "@+id/favorite"
+                        android:gravity = "center"
+                        android:onClick = "favorite"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toRightOf="@+id/poster"
+                        android:layout_below="@+id/rating"
+                        android:layout_alignParentEnd="true" />
+
+
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,7 +110,7 @@
                 android:paddingBottom = "15dp"
                 android:layout_marginBottom="5dp"
                 android:id ="@+id/overview"
-                android:layout_below = "@+id/poster"
+                android:layout_below = "@+id/twolayout"
                 android:textSize="15dp" />
 
             <LinearLayout android:layout_width = "fill_parent"
