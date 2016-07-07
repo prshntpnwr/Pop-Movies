@@ -16,13 +16,11 @@ The concept and features used in Project 1 and project 2 are listed below :
  - Use of intents to launch MOvie's Trailers on app like Youtube or diffault Browser.
  - Two Pane UI implementaion for Tablets. 
 
- Screenshots :
+Screenshots :
 ----------------------
 
 Phone Screenshot
 ----------------
-![Main Screen Showing Popular Movies](https://s31.postimg.org/nknu65d23/Gen.png) 
-
-![Detail Screen Showing Movie's Details](https://s32.postimg.org/jwigvd1md/Detail_Generic_Phone.png)
+![Main Screen Showing Popular Movies](https://s31.postimg.org/nknu65d23/Gen.png)  ![Detail Screen Showing Movie's Details](https://s32.postimg.org/jwigvd1md/Detail_Generic_Phone.png)
 
 ![Tablet Screen Showing Popular Movies App](https://s32.postimg.org/ehzb0duxh/Moto_XOOM.png)
