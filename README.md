@@ -1,4 +1,5 @@
 #Popular Movies 
+----------------------
 ##About
 This Repository contain Project 1 and Project 2 of Android Development by udacity. The purpose of this project is to built an app that help the user to see movies with details and trailers based on the priority selected by user, i.e Most popular, Top rated and favorite. The Favorite section contains offline movies details stored using SQLite DataBase. When ever a poster is selected by user, it launches a detail screen that contain movies details like ratings, overview, trailer, release date, comments and a button to add movie to favorite.  
 The concept and features used in Project 1 and project 2 are listed below :
@@ -18,6 +19,10 @@ The concept and features used in Project 1 and project 2 are listed below :
  Screenshots :
 ----------------------
 
+Phone Screenshot
+----------------
+![Main Screen Showing Popular Movies](https://s31.postimg.org/nknu65d23/Gen.png) 
 
+![Detail Screen Showing Movie's Details](https://s32.postimg.org/jwigvd1md/Detail_Generic_Phone.png)
 
-**Bold** __itallic__
+![Tablet Screen Showing Popular Movies App](https://s32.postimg.org/ehzb0duxh/Moto_XOOM.png)
