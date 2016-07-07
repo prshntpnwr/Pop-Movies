@@ -19,8 +19,6 @@ The concept and features used in Project 1 and project 2 are listed below :
 Screenshots :
 ----------------------
 
-Phone Screenshot
-----------------
-![Main Screen Showing Popular Movies](https://s31.postimg.org/nknu65d23/Gen.png)  ![Detail Screen Showing Movie's Details](https://s32.postimg.org/jwigvd1md/Detail_Generic_Phone.png)
+<img width="40%" src="/art/Phone_PosterGrid.png" />   <img width="40%" src="/art/Movie's_Detail.png" />
 
-![Tablet Screen Showing Popular Movies App](https://s32.postimg.org/ehzb0duxh/Moto_XOOM.png)
+![tablet-landscape](/art/Tablet.png)
